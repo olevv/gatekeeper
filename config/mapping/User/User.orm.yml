@@ -40,7 +40,3 @@ App\Domain\User\User:
       type: datetime_immutable
       column: updated_at
       nullable: true
-    deletedAt:
-      type: datetime_immutable
-      column: deleted_at
-      nullable: true

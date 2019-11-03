@@ -34,7 +34,6 @@ final class Version20191027172322 extends AbstractMigration
                                 access_token_expires TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
                                 created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
                                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
-                                deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
                                 PRIMARY KEY(uuid)
                             )'
         );
@@ -49,7 +48,6 @@ final class Version20191027172322 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN users.access_token_expires IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN users.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN users.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN users.deleted_at IS \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void

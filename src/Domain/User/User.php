@@ -44,9 +44,6 @@ final class User
     /** @var \DateTimeImmutable|null */
     private $updatedAt;
 
-    /** @var \DateTimeImmutable|null */
-    private $deletedAt;
-
     public static function create(
         UuidInterface $uuid,
         Credentials $credentials,
@@ -92,7 +89,6 @@ final class User
 
         $this->status = $blocked;
         $this->updatedAt = new \DateTimeImmutable('now');
-        $this->deletedAt = new \DateTimeImmutable('now');
     }
 
     /**
@@ -108,7 +104,6 @@ final class User
 
         $this->status = $active;
         $this->updatedAt = new \DateTimeImmutable('now');
-        $this->deletedAt = null;
     }
 
     /**
