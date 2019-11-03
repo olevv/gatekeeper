@@ -1,0 +1,12 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+
+    session:
+        handler_id: ~
+
+    php_errors:
+        log: true
+
+    router:
+        strict_requirements: ~
+        utf8: true

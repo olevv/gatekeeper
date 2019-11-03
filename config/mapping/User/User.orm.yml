@@ -1,0 +1,46 @@
+App\Domain\User\User:
+  type: entity
+  table: users
+
+  id:
+    uuid:
+      type: uuid
+      column: uuid
+
+  fields:
+    email:
+      type: email
+      unique: true
+      length: 60
+      column: email
+    hashedPassword:
+      type: hashed_password
+      length: 255
+      column: password_hash
+    role:
+      type: role
+      length: 30
+      column: role
+    status:
+      type: status
+      length: 16
+      column: status
+    accessToken:
+      type: string
+      length: 255
+      column: access_token
+    accessTokenExpires:
+      type: datetime_immutable
+      column: access_token_expires
+      nullable: true
+    createdAt:
+      type: datetime_immutable
+      column: created_at
+    updatedAt:
+      type: datetime_immutable
+      column: updated_at
+      nullable: true
+    deletedAt:
+      type: datetime_immutable
+      column: deleted_at
+      nullable: true

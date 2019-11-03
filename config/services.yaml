@@ -1,0 +1,39 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $queryBus: '@tactician.commandbus.query'
+            $commandBus: '@tactician.commandbus.command'
+
+    _instanceof:
+        App\Application\Command\CommandHandler:
+            public: true
+            tags:
+                - { name: tactician.handler, typehints: true, bus: command }
+
+        App\Application\Query\QueryHandler:
+            public: true
+            tags:
+                - { name: tactician.handler, typehints: true, bus: query }
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/**/{Migrations,EventSubscriber}'
+
+    ### UI
+
+    App\UI\Http\Rest\Controller\:
+        resource: '../src/UI/Http/Rest/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    ### UI Listeners
+
+    App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception' }
+
+    App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100 }

@@ -1,0 +1,37 @@
+parameters:
+    env(DB_HOST): 'postgres'
+    env(DB_PORT): '5432'
+    env(DB_DATABASE): 'gatekeeper'
+    env(DB_USERNAME): 'gatekeeper'
+    env(DB_PASSWORD): '123456'
+
+doctrine:
+    dbal:
+        driver:   pdo_pgsql
+        host:     "%env(DB_HOST)%"
+        port:     "%env(DB_PORT)%"
+        dbname:   "%env(DB_DATABASE)%"
+        user:     "%env(DB_USERNAME)%"
+        password: "%env(DB_PASSWORD)%"
+        charset:  UTF8
+        server_version: '11.2'
+        default_table_options:
+            charset: utf8
+            collate: -
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+            email: App\Infrastructure\Shared\DoctrineTypes\EmailType
+            hashed_password: App\Infrastructure\Shared\DoctrineTypes\HashedPasswordType
+            role: App\Infrastructure\Shared\DoctrineTypes\RoleType
+            status: App\Infrastructure\Shared\DoctrineTypes\StatusType
+        mapping_types:
+            jsonb: json_array
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            User:
+                type: yml
+                prefix: 'App\Domain\User'
+                dir: '%kernel.project_dir%/config/mapping/User'

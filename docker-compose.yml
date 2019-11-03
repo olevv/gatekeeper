@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./docker/development
+      dockerfile: nginx.docker
+    volumes:
+      - .:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+
+  php-fpm:
+    build:
+      context: ./docker/development
+      dockerfile: php-fpm.docker
+    volumes:
+      - .:/app
+    environment:
+      XDEBUG_CONFIG: "remote_host=host.docker.internal"
+      PHP_IDE_CONFIG: "serverName=gatekeeper.local"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:11.2-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: gatekeeper
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: gatekeeper
+    ports:
+      - "54321:5432"
+
+volumes:
+  postgres:
