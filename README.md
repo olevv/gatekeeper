@@ -1,4 +1,4 @@
-Private API simple for authentication and authorization 
+Simple private API simple for auth
 -----------------------
 ## Documentation
 
