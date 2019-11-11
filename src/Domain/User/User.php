@@ -32,7 +32,7 @@ final class User
     /** @var Status */
     private $status;
 
-    /** @var string */
+    /** @var string|null */
     private $accessToken;
 
     /** @var \DateTimeImmutable|null */
@@ -151,7 +151,7 @@ final class User
     public function changeRole(Role $role): void
     {
         if ($this->role->equals($role)) {
-            throw new \DomainException('Role is already same.');
+            throw new DomainException('Role is already same.');
         }
 
         $this->role = $role;

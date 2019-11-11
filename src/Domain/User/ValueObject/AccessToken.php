@@ -40,7 +40,7 @@ final class AccessToken
      */
     public static function fromString(string $value): self
     {
-        Assertion::notNull($value);
+        Assertion::notEmpty($value);
 
         $self = new self();
 
@@ -52,14 +52,14 @@ final class AccessToken
     /**
      * @param string $value
      *
-     * @param string $expiresAt
+     * @param \DateTimeImmutable $expiresAt
      * @return AccessToken
      * @throws \Assert\AssertionFailedException
      * @throws \Exception
      */
     public static function createWithExpiresAt(string $value, \DateTimeImmutable $expiresAt): self
     {
-        Assertion::notNull($value);
+        Assertion::notEmpty($value);
 
         $now = new \DateTimeImmutable('now');
 

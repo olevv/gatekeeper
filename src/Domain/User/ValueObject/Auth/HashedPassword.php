@@ -38,11 +38,11 @@ final class HashedPassword
 
     public static function fromHash(string $hashedPassword): self
     {
-        $pass = new self();
+        $self = new self();
 
-        $pass->hashedPassword = $hashedPassword;
+        $self->hashedPassword = $hashedPassword;
 
-        return $pass;
+        return $self;
     }
 
     public function match(string $plainPassword): bool

@@ -16,9 +16,9 @@ final class UserView implements SerializableView
     public $role;
     /** @var string */
     public $status;
-    /** @var string */
+    /** @var string|null */
     public $access_token;
-    /** @var string */
+    /** @var string|null */
     public $access_token_expires;
     /** @var string */
     public $created_at;

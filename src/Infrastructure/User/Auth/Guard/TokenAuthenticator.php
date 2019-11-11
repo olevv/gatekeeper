@@ -102,9 +102,10 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
                 HashedPassword::fromHash($userView->password_hash)
             );
 
-            $accessToken = $userView->access_token_expires === null
-                ? AccessToken::fromString($userView->access_token)
-                : AccessToken::createWithExpiresAt($userView->access_token, new \DateTimeImmutable($userView->access_token_expires));
+            $accessToken = AccessToken::createWithExpiresAt(
+                $userView->access_token,
+                new \DateTimeImmutable($userView->access_token_expires)
+            );
 
             return new Auth(
                 Uuid::fromString($userView->uuid),
