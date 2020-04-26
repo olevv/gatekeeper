@@ -21,10 +21,6 @@ final class SignUpCommand
      * @var Credentials
      */
     public $credentials;
-    /**
-     * @var Role
-     */
-    public $role;
 
     /**
      * @param string $uuid

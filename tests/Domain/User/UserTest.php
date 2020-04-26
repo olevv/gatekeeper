@@ -13,8 +13,8 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use App\Domain\User\ValueObject\Role;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 final class UserTest extends TestCase
 {

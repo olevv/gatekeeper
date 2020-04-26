@@ -19,7 +19,6 @@ final class BlockHandler implements CommandHandler
      */
     private $flusher;
 
-
     public function __construct(UserRepository $userRepository, Flusher $flusher)
     {
         $this->userStore = $userRepository;
