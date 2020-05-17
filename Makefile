@@ -45,7 +45,7 @@ composer-install: ## run composer-install
 
 .PHONY: create-user
 create-user: ## create default user
-		$(compose) exec php-fpm sh -lc './bin/console app:create-user'
+		$(compose) exec php-fpm sh -lc './bin/console app:create-user $(email) $(password) $(uuid)'
 
 .PHONY: remove-files
 remove-files: ## remove files which created init fraemwork
@@ -57,8 +57,8 @@ remove-folders: ## remove folders which created init fraemwork
 
 .PHONY: db
 db: ## run init doctrine db
-		$(compose) exec php-fpm sh -lc './bin/console d:d:d --force'
-		$(compose) exec php-fpm sh -lc './bin/console d:d:c'
+		$(compose) exec php-fpm sh -lc './bin/console d:d:d --force --if-exists'
+		$(compose) exec php-fpm sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec php-fpm sh -lc './bin/console d:m:m -n'
 
 .PHONY: migration-generate
@@ -78,7 +78,7 @@ logs: ## look for 's' service logs, make s=php logs
 		$(compose) logs -f $(s)
 
 .PHONY: tests
-tests: tests ## execute project tests
+tests: db ## execute project tests
 	docker-compose exec php-fpm sh -lc "./vendor/bin/phpunit $(conf)"
 
 .PHONY: style
@@ -86,7 +86,6 @@ style: ## execute php analizers
 	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpmnd src'
 	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcs --standard=psr2 src'
 	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcpd src'
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcdm src --non-zero-exit-on-violation'
 	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src'
 
 .PHONY: cs

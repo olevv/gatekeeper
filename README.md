@@ -33,13 +33,13 @@ Simple private API for auth
 
 ## Project Setup
 
-Up environment:
+Init environment:
 
-`make start`
+`make init`
 
 Execute tests:
 
-`make phpunit`
+`make tests`
 
 Static code analysis:
 
@@ -52,6 +52,14 @@ Code style fixer:
 Code style checker:
 
 `make cs-check`
+
+Enter in php container:
+
+`make s=php-fpm sh`
+
+Show all commands:
+
+`make help`
 
 Add to /etc/hosts:
 
