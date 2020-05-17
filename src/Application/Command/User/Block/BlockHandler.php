@@ -10,14 +10,8 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 
 final class BlockHandler implements CommandHandler
 {
-    /**
-     * @var UserRepository
-     */
-    private $userStore;
-    /**
-     * @var Flusher
-     */
-    private $flusher;
+    private UserRepository $userStore;
+    private Flusher $flusher;
 
     public function __construct(UserRepository $userRepository, Flusher $flusher)
     {

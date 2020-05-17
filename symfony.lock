@@ -120,6 +120,15 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.3"
+    },
     "league/tactician": {
         "version": "v1.0.3"
     },
@@ -194,6 +203,9 @@
     },
     "phar-io/version": {
         "version": "2.0.1"
+    },
+    "php": {
+        "version": "7.4"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -587,6 +599,9 @@
     },
     "vantoozz/phpcdm": {
         "version": "v1.0.0"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.1"
     },
     "webmozart/assert": {
         "version": "1.5.0"

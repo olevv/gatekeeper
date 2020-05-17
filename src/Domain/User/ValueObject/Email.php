@@ -5,21 +5,25 @@ declare(strict_types=1);
 namespace App\Domain\User\ValueObject;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 final class Email
 {
-    /** @var string */
-    private $email;
+    private string $email;
 
     /**
      * @param string $email
      * @return Email
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws \InvalidArgumentException
      */
     public static function fromString(string $email): self
     {
-        Assertion::email($email, 'Not a valid email');
+        try {
+            Assertion::email($email, 'Not a valid email');
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $mail = new self();
 

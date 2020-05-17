@@ -13,18 +13,9 @@ use Ramsey\Uuid\Uuid;
 
 final class GetTokenHandler implements QueryHandler
 {
-    /**
-     * @var FindUserByEmail
-     */
-    private $userFinder;
-    /**
-     * @var UserRepository
-     */
-    private $userStore;
-    /**
-     * @var Flusher
-     */
-    private $flusher;
+    private FindUserByEmail $userFinder;
+    private UserRepository $userStore;
+    private Flusher $flusher;
 
     public function __construct(FindUserByEmail $userFinder, UserRepository $userStore, Flusher $flusher)
     {

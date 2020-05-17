@@ -10,10 +10,7 @@ use App\Domain\User\ViewModel\UserView;
 
 final class GetUsersHandler implements QueryHandler
 {
-    /**
-     * @var FindUsers
-     */
-    private $findUsers;
+    private FindUsers $findUsers;
 
     public function __construct(FindUsers $users)
     {

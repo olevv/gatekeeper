@@ -6,17 +6,16 @@ namespace App\Domain\User\ValueObject;
 
 use App\Domain\User\Exception\InvalidAccessTokenException;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 final class AccessToken
 {
     private const SALT = 'base_token';
     private const ONE_HOUR = 'PT1H';
 
-    /** @var string */
-    private $value;
+    private string $value;
 
-    /** @var \DateTimeImmutable|null */
-    private $expires_at;
+    private ?\DateTimeImmutable $expiresAt;
 
     /**
      * @return AccessToken
@@ -27,20 +26,18 @@ final class AccessToken
         $self = new self();
 
         $self->value = sha1(random_int(1, 90000).self::SALT);
-        $self->expires_at = (new \DateTimeImmutable('now'))->add(new \DateInterval(self::ONE_HOUR));
+        $self->expiresAt = (new \DateTimeImmutable('now'))->add(new \DateInterval(self::ONE_HOUR));
 
         return $self;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return AccessToken
-     * @throws \Assert\AssertionFailedException
-     */
     public static function fromString(string $value): self
     {
-        Assertion::notEmpty($value);
+        try {
+            Assertion::notEmpty($value);
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $self = new self();
 
@@ -54,12 +51,15 @@ final class AccessToken
      *
      * @param \DateTimeImmutable $expiresAt
      * @return AccessToken
-     * @throws \Assert\AssertionFailedException
-     * @throws \Exception
+     * @throws InvalidAccessTokenException
      */
     public static function createWithExpiresAt(string $value, \DateTimeImmutable $expiresAt): self
     {
-        Assertion::notEmpty($value);
+        try {
+            Assertion::notEmpty($value);
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $now = new \DateTimeImmutable('now');
 
@@ -70,7 +70,7 @@ final class AccessToken
         $self = new self();
 
         $self->value = $value;
-        $self->expires_at = $expiresAt;
+        $self->expiresAt = $expiresAt;
 
         return $self;
     }
@@ -82,7 +82,7 @@ final class AccessToken
 
     public function expiresAt(): ?\DateTimeImmutable
     {
-        return $this->expires_at;
+        return $this->expiresAt;
     }
 
     private function __construct()

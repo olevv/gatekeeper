@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,19 +49,20 @@ final class SignUpController extends CommandQueryController
      *
      * @param Request $request
      * @return JsonResponse
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {
         $email = $request->get('email');
         $plainPassword = $request->get('password');
 
-        Assertion::notNull($email, "Email can\'t be null");
-        Assertion::notNull($plainPassword, "Password can\'t be null");
+        try {
+            Assertion::notNull($email, "Email can\'t be null");
+            Assertion::notNull($plainPassword, "Password can\'t be null");
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
-        $commandRequest = new SignUpCommand(Uuid::uuid4()->toString(), $email, $plainPassword);
-
-        $this->exec($commandRequest);
+        $this->exec(new SignUpCommand(Uuid::uuid4()->toString(), $email, $plainPassword));
 
         return JsonResponse::create(null, JsonResponse::HTTP_CREATED);
     }

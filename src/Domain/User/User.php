@@ -17,32 +17,15 @@ use Ramsey\Uuid\UuidInterface;
 
 final class User
 {
-    /** @var UuidInterface */
-    private $uuid;
-
-    /** @var Email */
-    private $email;
-
-    /** @var HashedPassword */
-    private $hashedPassword;
-
-    /** @var Role */
-    private $role;
-
-    /** @var Status */
-    private $status;
-
-    /** @var string|null */
-    private $accessToken;
-
-    /** @var \DateTimeImmutable|null */
-    private $accessTokenExpires;
-
-    /** @var \DateTimeImmutable */
-    private $createdAt;
-
-    /** @var \DateTimeImmutable|null */
-    private $updatedAt;
+    private UuidInterface $uuid;
+    private Email $email;
+    private HashedPassword $hashedPassword;
+    private Role $role;
+    private Status $status;
+    private ?string $accessToken;
+    private ?\DateTimeImmutable $accessTokenExpires;
+    private \DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $updatedAt;
 
     public static function create(
         UuidInterface $uuid,

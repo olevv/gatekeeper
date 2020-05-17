@@ -16,7 +16,7 @@ use Doctrine\DBAL\FetchMode;
 
 final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken, FindUsers
 {
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {
@@ -53,7 +53,7 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
         $model = $stmt->fetch();
 
         if (!$model instanceof UserView) {
-            throw new NotFoundException();
+            throw new NotFoundException('Not found user for email: ' . $email->toString());
         }
 
         return $model;
@@ -89,7 +89,7 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
         $model = $stmt->fetch();
 
         if (!$model instanceof UserView) {
-            throw new NotFoundException();
+            throw new NotFoundException('Not found user for token: ' . $token->toString());
         }
 
         return $model;
@@ -113,7 +113,6 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
                 'access_token_expires',
                 'created_at',
                 'updated_at',
-                'deleted_at',
                 )
             ->from('users')
             ->setMaxResults($limit)

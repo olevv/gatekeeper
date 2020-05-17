@@ -8,6 +8,7 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Auth\GetToken\GetTokenQuery;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,15 +54,18 @@ final class CheckController extends CommandQueryController
      *
      * @return JsonResponse
      *
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {
         $email = $request->get('email');
         $plainPassword = $request->get('password');
 
-        Assertion::notNull($email, 'Email cant\'t be empty');
-        Assertion::notNull($plainPassword, 'Password cant\'t be empty');
+        try {
+            Assertion::notNull($email, "Email can\'t be null");
+            Assertion::notNull($plainPassword, "Password can\'t be null");
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $command = new SignInCommand($email, $plainPassword);
 

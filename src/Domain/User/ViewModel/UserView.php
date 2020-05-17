@@ -6,26 +6,15 @@ namespace App\Domain\User\ViewModel;
 
 final class UserView implements SerializableView
 {
-    /** @var string */
-    public $uuid;
-    /** @var string */
-    public $email;
-    /** @var string */
-    public $password_hash;
-    /** @var string */
-    public $role;
-    /** @var string */
-    public $status;
-    /** @var string|null */
-    public $access_token;
-    /** @var string|null */
-    public $access_token_expires;
-    /** @var string */
-    public $created_at;
-    /** @var string|null */
-    public $updated_at;
-    /** @var string|null */
-    public $deleted_at;
+    public string $uuid;
+    public string $email;
+    public string $password_hash;
+    public string $role;
+    public string $status;
+    public ?string $access_token;
+    public ?string $access_token_expires;
+    public string $created_at;
+    public ?string $updated_at;
 
     public function toArray(): array
     {
@@ -37,6 +26,7 @@ final class UserView implements SerializableView
             'access_token' => $this->access_token,
             'access_token_expires' => $this->access_token_expires,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

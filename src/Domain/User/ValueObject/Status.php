@@ -11,21 +11,18 @@ final class Status
     private const ACTIVE = 'ACTIVE';
     private const BLOCKED = 'BLOCKED';
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     public function __construct(string $name)
     {
-        $name = mb_strtoupper($name);
+        $name = strtoupper($name);
 
         Assertion::inArray($name, [
             self::ACTIVE,
             self::BLOCKED,
         ]);
 
-        $this->name = (string)$name;
+        $this->name = $name;
     }
 
     public static function active(): self

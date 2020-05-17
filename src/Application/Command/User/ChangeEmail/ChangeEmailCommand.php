@@ -6,17 +6,12 @@ namespace App\Application\Command\User\ChangeEmail;
 
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class ChangeEmailCommand
 {
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    public $uuid;
-    /**
-     * @var Email
-     */
-    public $email;
+    public UuidInterface $uuid;
+    public Email $email;
 
     public function __construct(string $uuid, string $email)
     {

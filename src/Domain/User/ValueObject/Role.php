@@ -5,25 +5,30 @@ declare(strict_types=1);
 namespace App\Domain\User\ValueObject;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 final class Role
 {
     private const USER = 'ROLE_USER';
     private const ADMIN = 'ROLE_ADMIN';
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     public function __construct(string $name)
     {
-        $name = mb_strtoupper($name);
+        $name = strtoupper($name);
 
-        Assertion::inArray($name, [
-            self::USER,
-            self::ADMIN,
-        ]);
+        try {
+            Assertion::inArray(
+                $name,
+                [
+                    self::USER,
+                    self::ADMIN,
+                ]
+            );
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $this->name = $name;
     }

@@ -13,24 +13,18 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserStore implements UserRepository
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var \Doctrine\ORM\EntityRepository
-     */
-    private $repository;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $entityManager->getRepository(User::class);
     }
 
     public function get(UuidInterface $uuid): User
     {
-        $user = $this->repository->find($uuid->toString());
+        $userRepository = $this->entityManager->getRepository(User::class);
+
+        $user = $userRepository->find($uuid->toString());
 
         if (null === $user) {
             throw new UserNotFoundException("User with id {$uuid->toString()} not found.");

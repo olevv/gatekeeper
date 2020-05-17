@@ -13,10 +13,7 @@ use Doctrine\ORM\NonUniqueResultException;
 
 final class PostgresUniqueEmailSpecification extends Specification implements UniqueEmailSpecification
 {
-    /**
-     * @var CheckUserByEmail
-     */
-    private $checkUserByEmail;
+    private CheckUserByEmail $checkUserByEmail;
 
     public function __construct(CheckUserByEmail $checkUserByEmail)
     {

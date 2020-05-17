@@ -15,20 +15,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class Auth implements UserInterface
 {
-    /** @var UuidInterface */
-    private $userId;
-    /** @var Email */
-    private $email;
-    /** @var HashedPassword */
-    private $password;
-    /** @var Role */
-    private $role;
-    /** @var Status */
-    private $status;
-    /** @var string */
-    private $accessToken;
-    /** @var \DateTimeImmutable|null */
-    private $accessTokenExpires;
+    private UuidInterface $userId;
+    private Email $email;
+    private HashedPassword $password;
+    private Role $role;
+    private Status $status;
+    private string $accessToken;
+    private ?\DateTimeImmutable $accessTokenExpires;
 
     public function __construct(
         UuidInterface $userId,
@@ -70,38 +63,38 @@ final class Auth implements UserInterface
     {
     }
 
-    public function canCreateUser(): bool
-    {
-        return $this->role->equals(Role::admin());
-    }
-
     public function canSeeUserInfo(Email $email): bool
     {
-        return $this->role->equals(Role::admin()) || $email->equals($this->email);
+        return $this->isAdminActive() || $email->equals($this->email);
     }
 
     public function canBlockUser(): bool
     {
-        return $this->role->equals(Role::admin());
+        return $this->isAdminActive();
     }
 
     public function canUnblockUser(): bool
     {
-        return $this->role->equals(Role::admin());
+        return $this->isAdminActive();
     }
 
     public function canChangePassword(UuidInterface $userId): bool
     {
-        return $this->role->equals(Role::admin()) || $userId->equals($this->userId);
+        return $this->isAdminActive() || $userId->equals($this->userId);
     }
 
     public function canChangeEmail(UuidInterface $userId): bool
     {
-        return $this->role->equals(Role::admin()) || $userId->equals($this->userId);
+        return $this->isAdminActive() || $userId->equals($this->userId);
     }
 
     public function canSeeUsers(): bool
     {
-        return $this->role->equals(Role::admin());
+        return $this->isAdminActive();
+    }
+
+    private function isAdminActive(): bool
+    {
+        return $this->role->equals(Role::admin()) && $this->status->equals(Status::active());
     }
 }

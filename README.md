@@ -14,7 +14,7 @@ Simple private API for auth
 
 ## Stack
 
-- PHP 7.3
+- PHP 7.4
 - Postgres 11
 
 ## Use Cases

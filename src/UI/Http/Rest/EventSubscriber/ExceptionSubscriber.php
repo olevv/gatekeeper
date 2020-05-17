@@ -10,16 +10,13 @@ use App\Domain\User\Exception\InvalidCredentialsException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ExceptionSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
-    private $environment;
+    private string $environment;
 
     public function __construct()
     {
@@ -33,9 +30,9 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         $response = new JsonResponse();
         $response->headers->set('Content-Type', 'application/vnd.api+json');

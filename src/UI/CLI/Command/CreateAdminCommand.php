@@ -16,10 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateAdminCommand extends Command
 {
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
+    private CommandBus $commandBus;
 
     public function __construct(CommandBus $commandBus)
     {

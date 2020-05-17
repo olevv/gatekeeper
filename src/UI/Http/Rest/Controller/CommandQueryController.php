@@ -9,10 +9,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CommandQueryController extends QueryController
 {
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
+    private CommandBus $commandBus;
 
     public function __construct(
         CommandBus $commandBus,

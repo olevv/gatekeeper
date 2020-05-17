@@ -8,14 +8,8 @@ use App\Domain\User\ValueObject\AccessToken;
 
 final class FindByTokenQuery
 {
-    /** @var AccessToken */
-    public $token;
+    public AccessToken $token;
 
-    /**
-     * @param string $token
-     *
-     * @throws \Assert\AssertionFailedException
-     */
     public function __construct(string $token)
     {
         $this->token = AccessToken::fromString($token);

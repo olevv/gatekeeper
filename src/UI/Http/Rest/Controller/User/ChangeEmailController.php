@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -58,13 +59,16 @@ final class ChangeEmailController extends CommandQueryController
      * @param string $uuid
      * @param Request $request
      * @return JsonResponse
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {
         $email = (string) $request->get('email');
 
-        Assertion::notNull($email, "Email can\'t be null");
+        try {
+            Assertion::notNull($email, "Email can\'t be null");
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $command = new ChangeEmailCommand($uuid, $email);
 
