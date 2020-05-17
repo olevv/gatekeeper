@@ -30,10 +30,7 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
     private const PREFIX = 'Bearer';
     private const NAME = 'Authorization';
 
-    /**
-     * @var CommandBus
-     */
-    private $queryBus;
+    private CommandBus $queryBus;
 
     public function __construct(CommandBus $queryBus)
     {
@@ -56,11 +53,6 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
         return $response;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return bool
-     */
     public function supports(Request $request): bool
     {
         return $request->headers->has(self::NAME);
@@ -140,7 +132,6 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return;
     }
 
     public function supportsRememberMe(): bool

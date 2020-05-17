@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject\Auth;
 
+use App\Domain\Shared\Exception\HashedPasswordException;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
+use RuntimeException;
 
 final class HashedPassword
 {
-    /** @var string */
-    private $hashedPassword;
+    private string $hashedPassword;
 
     private const COST = 12;
 
@@ -17,21 +19,26 @@ final class HashedPassword
      * @param string $plainPassword
      * @return HashedPassword
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws HashedPasswordException
+     * @throws \InvalidArgumentException
      */
     public static function encode(string $plainPassword): self
     {
         $self = new self();
 
-        Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
+        try {
+            Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
 
-        if (\is_bool($hashedPassword)) {
-            throw new \RuntimeException('Server error hashing password');
+        if (\is_bool($hashedPassword) || $hashedPassword === null) {
+            throw new HashedPasswordException('Server error hashing password');
         }
 
-        $self->hashedPassword = $hashedPassword;
+        $self->hashedPassword = (string)$hashedPassword;
 
         return $self;
     }

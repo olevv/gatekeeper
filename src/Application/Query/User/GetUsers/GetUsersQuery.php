@@ -6,14 +6,8 @@ namespace App\Application\Query\User\GetUsers;
 
 final class GetUsersQuery
 {
-    /**
-     * @var int
-     */
-    public $offset;
-    /**
-     * @var int
-     */
-    public $limit;
+    public int $offset;
+    public int $limit;
 
     public function __construct(int $offset, int $limit)
     {

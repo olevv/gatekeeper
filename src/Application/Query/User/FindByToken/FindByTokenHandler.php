@@ -12,10 +12,7 @@ use App\Domain\User\ViewModel\UserView;
 
 final class FindByTokenHandler implements QueryHandler
 {
-    /**
-     * @var FindUserByAccessToken
-     */
-    private $userFinder;
+    private FindUserByAccessToken $userFinder;
 
     public function __construct(FindUserByAccessToken $userFinder)
     {

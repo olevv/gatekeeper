@@ -5,32 +5,28 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Checker;
 
 use App\Domain\User\Checker\CheckUserByEmail;
-use App\Domain\User\User;
 use App\Domain\User\ValueObject\Email;
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\UuidInterface;
+use Doctrine\DBAL\Connection;
 
 final class PostgresUserChecker implements CheckUserByEmail
 {
-    private $repository;
+    private Connection $connection;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(Connection $connection)
     {
-        $this->repository = $entityManager->getRepository(User::class);
+        $this->connection = $connection;
     }
 
-    public function existsEmail(Email $email): ?UuidInterface
+    public function existsEmail(Email $email): bool
     {
-        $userId = $this->repository
-            ->createQueryBuilder('user')
-            ->select('user.uuid')
-            ->where('user.email = :email')
-            ->setParameter('email', $email->toString())
-            ->getQuery()
-            ->setHydrationMode(AbstractQuery::HYDRATE_ARRAY)
-            ->getOneOrNullResult();
+        $uuid = $this->connection->createQueryBuilder()
+            ->select('uuid')
+            ->from('users')
+            ->where('email = :email')
+            ->setParameter(':email', $email->toString())
+            ->execute()
+            ->fetchColumn();
 
-        return $userId['uuid'] ?? null;
+        return $uuid !== false;
     }
 }

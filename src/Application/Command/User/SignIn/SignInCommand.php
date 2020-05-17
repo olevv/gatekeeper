@@ -8,22 +8,9 @@ use App\Domain\User\ValueObject\Email;
 
 final class SignInCommand
 {
-    /**
-     * @var Email
-     */
-    public $email;
+    public Email $email;
+    public string $plainPassword;
 
-    /**
-     * @var string
-     */
-    public $plainPassword;
-
-    /**
-     * @param string $email
-     * @param string $plainPassword
-     *
-     * @throws \Assert\AssertionFailedException
-     */
     public function __construct(string $email, string $plainPassword)
     {
         $this->email = Email::fromString($email);

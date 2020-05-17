@@ -8,16 +8,8 @@ use App\Domain\User\ValueObject\Email;
 
 final class GetTokenQuery
 {
-    /**
-     * @var Email
-     */
-    public $email;
+    public Email $email;
 
-    /**
-     * @param string $email
-     *
-     * @throws \Assert\AssertionFailedException
-     */
     public function __construct(string $email)
     {
         $this->email = Email::fromString($email);

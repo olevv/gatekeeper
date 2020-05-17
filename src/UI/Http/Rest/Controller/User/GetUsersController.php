@@ -5,6 +5,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Query\User\GetUsers\GetUsersQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,15 +41,18 @@ final class GetUsersController extends QueryController
      *
      * @return JsonResponse
      *
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {
         $limit = $request->get('limit', 50);
         $offset = $request->get('offset', 0);
 
-        Assertion::numeric($limit, 'Limit results must be an integer');
-        Assertion::numeric($offset, 'Offset results must be an integer');
+        try {
+            Assertion::numeric($limit, 'Limit results must be an integer');
+            Assertion::numeric($offset, 'Offset results must be an integer');
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $query = new GetUsersQuery((int) $offset, (int) $limit);
 

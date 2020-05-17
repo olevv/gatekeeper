@@ -2,7 +2,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
@@ -46,7 +46,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4"
+        }
     },
     "autoload": {
         "psr-4": {

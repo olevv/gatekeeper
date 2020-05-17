@@ -8,15 +8,8 @@ use App\Domain\User\ValueObject\Email;
 
 final class FindByEmailQuery
 {
-    /**
-     * @var Email
-     */
-    public $email;
+    public Email $email;
 
-    /**
-     * @param string $email
-     * @throws \Assert\AssertionFailedException
-     */
     public function __construct(string $email)
     {
         $this->email = Email::fromString($email);

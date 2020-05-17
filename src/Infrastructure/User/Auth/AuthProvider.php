@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
+use App\Domain\Shared\Exception\NotFoundException;
+use App\Domain\User\Exception\InvalidAccessTokenException;
 use App\Domain\User\Finder\FindUserByEmail;
 use App\Domain\User\ValueObject\AccessToken;
 use App\Domain\User\ValueObject\Auth\Credentials;
@@ -17,10 +19,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class AuthProvider implements UserProviderInterface
 {
-    /**
-     * @var FindUserByEmail
-     */
-    private $userFinder;
+    private FindUserByEmail $userFinder;
 
     public function __construct(FindUserByEmail $userFinder)
     {
@@ -31,11 +30,9 @@ final class AuthProvider implements UserProviderInterface
      * @param string $email
      *
      * @return Auth|UserInterface
-     * @throws \App\Domain\Shared\Exception\NotFoundException
-     * @throws \Assert\AssertionFailedException
-     * @throws \Exception
+     * @throws NotFoundException|\Exception|InvalidAccessTokenException
      */
-    public function loadUserByUsername($email)
+    public function loadUserByUsername($email): UserInterface
     {
         $userView = $this->userFinder->oneByEmail(Email::fromString($email));
 
@@ -61,8 +58,7 @@ final class AuthProvider implements UserProviderInterface
     /**
      * @param UserInterface $user
      * @return UserInterface
-     * @throws \App\Domain\Shared\Exception\NotFoundException
-     * @throws \Assert\AssertionFailedException
+     * @throws NotFoundException|InvalidAccessTokenException
      */
     public function refreshUser(UserInterface $user): UserInterface
     {

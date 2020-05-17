@@ -10,10 +10,7 @@ use App\Domain\User\ViewModel\UserView;
 
 final class FindByEmailHandler implements QueryHandler
 {
-    /**
-     * @var FindUserByEmail
-     */
-    private $userFinder;
+    private FindUserByEmail $userFinder;
 
     public function __construct(FindUserByEmail $userFinder)
     {

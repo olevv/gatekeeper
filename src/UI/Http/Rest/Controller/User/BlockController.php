@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\Block\BlockCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,11 +51,14 @@ final class BlockController extends CommandQueryController
      *
      * @return JsonResponse
      *
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {
-        Assertion::notNull($uuid, 'Uuid cannot be empty');
+        try {
+            Assertion::notNull($uuid, 'Uuid cannot be empty');
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $command = new BlockCommand($uuid);
 

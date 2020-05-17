@@ -10,20 +10,13 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ChangePasswordCommand
 {
-    /**
-     * @var UuidInterface
-     */
-    public $uuid;
-    /**
-     * @var HashedPassword
-     */
-    public $password;
+    public UuidInterface $uuid;
+    public HashedPassword $password;
 
     /**
      * @param string $uuid
      * @param string $plainPassword
-     *
-     * @throws \Assert\AssertionFailedException
+     * @throws \App\Domain\Shared\Exception\HashedPasswordException
      */
     public function __construct(string $uuid, string $plainPassword)
     {

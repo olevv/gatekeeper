@@ -10,14 +10,8 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 
 final class ChangePasswordHandler implements CommandHandler
 {
-    /**
-     * @var UserRepository
-     */
-    private $userStore;
-    /**
-     * @var Flusher
-     */
-    private $flusher;
+    private UserRepository $userStore;
+    private Flusher $flusher;
 
     public function __construct(UserRepository $userStore, Flusher $flusher)
     {

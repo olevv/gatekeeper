@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class JsonBodyParserSubscriber implements EventSubscriberInterface
@@ -19,7 +19,7 @@ final class JsonBodyParserSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -46,9 +46,9 @@ final class JsonBodyParserSubscriber implements EventSubscriberInterface
 
     private function transformJsonBody(Request $request): bool
     {
-        $data = json_decode((string)$request->getContent(), true, 512, JSON_THROW_ON_ERROR);
-
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        try {
+            $data = json_decode((string)$request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
             return false;
         }
 

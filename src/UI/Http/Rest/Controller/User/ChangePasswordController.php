@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\ChangePassword\ChangePasswordCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,13 +54,16 @@ final class ChangePasswordController extends CommandQueryController
      *
      * @return JsonResponse
      *
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {
         $password = (string) $request->get('password');
 
-        Assertion::notNull($password, 'New password cant\'t be empty');
+        try {
+            Assertion::notNull($password, 'New password cant\'t be empty');
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $command = new ChangePasswordCommand($uuid, $password);
 

@@ -8,10 +8,7 @@ use League\Tactician\CommandBus;
 
 abstract class CommandController
 {
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
+    private CommandBus $commandBus;
 
     public function __construct(CommandBus $commandBus)
     {

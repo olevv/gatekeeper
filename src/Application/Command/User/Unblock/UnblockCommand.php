@@ -9,10 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UnblockCommand
 {
-    /**
-     * @var UuidInterface
-     */
-    public $uuid;
+    public UuidInterface $uuid;
 
     public function __construct(string $uuid)
     {

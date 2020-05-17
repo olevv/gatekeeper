@@ -11,18 +11,9 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 
 final class ChangeEmailHandler implements CommandHandler
 {
-    /**
-     * @var UserRepository
-     */
-    private $userStore;
-    /**
-     * @var Flusher
-     */
-    private $flusher;
-    /**
-     * @var UniqueEmailSpecification
-     */
-    private $uniqueEmail;
+    private UserRepository $userStore;
+    private Flusher $flusher;
+    private UniqueEmailSpecification $uniqueEmail;
 
     public function __construct(UserRepository $userStore, Flusher $flusher, UniqueEmailSpecification $uniqueEmail)
     {

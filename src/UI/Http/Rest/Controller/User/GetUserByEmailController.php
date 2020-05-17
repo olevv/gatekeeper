@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,11 +48,14 @@ final class GetUserByEmailController extends QueryController
      *
      * @return JsonResponse
      *
-     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(string $email): JsonResponse
     {
-        Assertion::notNull($email, "Email can\'t be null");
+        try {
+            Assertion::notNull($email, "Email can\'t be null");
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $query = new FindByEmailQuery($email);
 
