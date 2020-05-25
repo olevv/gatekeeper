@@ -25,3 +25,5 @@
 
 build/
 .phpunit.result.cache
+
+/Lsp/
