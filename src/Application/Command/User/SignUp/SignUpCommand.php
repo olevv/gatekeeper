@@ -7,13 +7,14 @@ namespace App\Application\Command\User\SignUp;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use App\Domain\User\ValueObject\Role;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class SignUpCommand
 {
+    /** @psalm-readonly */
     public UuidInterface $uuid;
+    /** @psalm-readonly */
     public Credentials $credentials;
 
     public function __construct(string $uuid, string $email, string $plainPassword)

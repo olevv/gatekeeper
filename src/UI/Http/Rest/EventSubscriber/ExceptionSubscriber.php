@@ -18,9 +18,9 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 {
     private string $environment;
 
-    public function __construct()
+    public function __construct(string $environment)
     {
-        $this->environment = getenv('APP_ENV');
+        $this->environment = $environment;
     }
 
     public static function getSubscribedEvents(): array

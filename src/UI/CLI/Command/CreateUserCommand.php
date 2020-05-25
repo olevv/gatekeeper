@@ -14,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateUserCommand extends Command
 {
+    private const EXIT_SUCCESS = 0;
     private CommandBus $commandBus;
 
     public function __construct(CommandBus $commandBus)
@@ -32,13 +33,7 @@ final class CreateUserCommand extends Command
             ->addArgument('uuid', InputArgument::OPTIONAL, 'User Uuid');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return void
-     * @throws \Assert\AssertionFailedException
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $uuid */
         $uuid = $input->getArgument('uuid') ?: Uuid::uuid4()->toString();
@@ -54,5 +49,7 @@ final class CreateUserCommand extends Command
         $output->writeln('<info>User Created: </info>');
         $output->writeln('');
         $output->writeln("Email: $email");
+
+        return self::EXIT_SUCCESS;
     }
 }

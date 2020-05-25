@@ -10,7 +10,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ChangePasswordCommand
 {
+    /** @psalm-readonly */
     public UuidInterface $uuid;
+    /** @psalm-readonly */
     public HashedPassword $password;
 
     /**

@@ -18,8 +18,11 @@ final class UserUnblockVoter extends Voter
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        /** @var Auth $auth */
         $auth = $token->getUser();
+
+        if (!$auth instanceof Auth) {
+            return false;
+        }
 
         return $auth->canUnblockUser();
     }

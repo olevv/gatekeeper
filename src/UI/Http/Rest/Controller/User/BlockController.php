@@ -8,6 +8,7 @@ use App\Application\Command\User\Block\BlockCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
+use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;

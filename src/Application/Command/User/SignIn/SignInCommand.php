@@ -8,7 +8,9 @@ use App\Domain\User\ValueObject\Email;
 
 final class SignInCommand
 {
+    /** @psalm-readonly */
     public Email $email;
+    /** @psalm-readonly */
     public string $plainPassword;
 
     public function __construct(string $email, string $plainPassword)
