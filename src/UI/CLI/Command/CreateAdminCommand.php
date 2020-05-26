@@ -16,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateAdminCommand extends Command
 {
+    private const EXIT_SUCCESS = 0;
     private CommandBus $commandBus;
 
     public function __construct(CommandBus $commandBus)
@@ -34,13 +35,7 @@ final class CreateAdminCommand extends Command
             ->addArgument('uuid', InputArgument::OPTIONAL, 'User Uuid');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return void
-     * @throws \Assert\AssertionFailedException
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $uuid */
         $uuid = $input->getArgument('uuid') ?: Uuid::uuid4()->toString();
@@ -48,7 +43,6 @@ final class CreateAdminCommand extends Command
         $email = $input->getArgument('email');
         /** @var string $password */
         $password = $input->getArgument('password');
-        /** @var string $role */
         $role = Role::admin()->toString();
 
         $this->commandBus->handle(new CreateUser($uuid, $email, $password));
@@ -58,5 +52,7 @@ final class CreateAdminCommand extends Command
         $output->writeln('<info>Admin Created: </info>');
         $output->writeln('');
         $output->writeln("Email: $email");
+
+        return self::EXIT_SUCCESS;
     }
 }

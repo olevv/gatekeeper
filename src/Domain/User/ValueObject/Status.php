@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\ValueObject;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 final class Status
 {
@@ -17,10 +18,17 @@ final class Status
     {
         $name = strtoupper($name);
 
-        Assertion::inArray($name, [
-            self::ACTIVE,
-            self::BLOCKED,
-        ]);
+        try {
+            Assertion::inArray(
+                $name,
+                [
+                    self::ACTIVE,
+                    self::BLOCKED,
+                ]
+            );
+        } catch (AssertionFailedException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
 
         $this->name = $name;
     }

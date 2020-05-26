@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class BlockCommand
 {
+    /** @psalm-readonly */
     public UuidInterface $uuid;
 
     public function __construct(string $uuid)

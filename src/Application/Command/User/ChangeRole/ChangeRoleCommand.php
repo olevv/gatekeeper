@@ -10,7 +10,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ChangeRoleCommand
 {
+    /** @psalm-readonly */
     public Role $role;
+    /** @psalm-readonly */
     public UuidInterface $uuid;
 
     public function __construct(string $uuid, string $role)

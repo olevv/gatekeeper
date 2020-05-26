@@ -10,7 +10,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ChangeEmailCommand
 {
+    /** @psalm-readonly */
     public UuidInterface $uuid;
+    /** @psalm-readonly */
     public Email $email;
 
     public function __construct(string $uuid, string $email)

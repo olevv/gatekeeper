@@ -22,15 +22,13 @@ services:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
 
-    ### UI
-
     App\UI\Http\Rest\Controller\:
         resource: '../src/UI/Http/Rest/Controller'
         tags: [ 'controller.service_arguments' ]
 
-    ### UI Listeners
-
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+        arguments:
+            - "%kernel.environment%"
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 

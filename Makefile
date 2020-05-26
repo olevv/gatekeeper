@@ -2,7 +2,7 @@ env=dev
 
 compose=docker-compose -f docker-compose.yml
 
-export compose env
+export compose
 
 .PHONY: init
 init: erase pull build up composer-install remove-files remove-folders db ## clean current environment, recreate dependencies, update db and spin up again
@@ -43,6 +43,10 @@ restart: ## restart environment
 composer-install: ## run composer-install
 		$(compose) exec php-fpm composer install
 
+.PHONY: composer-update
+composer-update: ## run composer-update
+		$(compose) exec php-fpm composer update
+
 .PHONY: create-user
 create-user: ## create default user
 		$(compose) exec php-fpm sh -lc './bin/console app:create-user $(email) $(password) $(uuid)'
@@ -78,7 +82,7 @@ logs: ## look for 's' service logs, make s=php logs
 		$(compose) logs -f $(s)
 
 .PHONY: tests
-tests: db ## execute project tests
+tests: tests ## execute project tests
 	docker-compose exec php-fpm sh -lc "./vendor/bin/phpunit $(conf)"
 
 .PHONY: style
@@ -99,6 +103,10 @@ cs-check: ## executes php cs fixer in dry run mode
 .PHONY: layer
 layer: ## Check issues with layers
 	docker-compose run --rm php-fpm sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
+
+.PHONY: psalm
+psalm: ## execute psalm analyzer
+		$(compose) run --rm php-fpm sh -lc './vendor/bin/psalm --show-info=false'
 
 .PHONY: help
 help: ## Display this help message

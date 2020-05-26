@@ -25,7 +25,7 @@ final class AccessToken
     {
         $self = new self();
 
-        $self->value = sha1(random_int(1, 90000).self::SALT);
+        $self->value = hash('sha512', random_int(1, 90000).self::SALT);
         $self->expiresAt = (new \DateTimeImmutable('now'))->add(new \DateInterval(self::ONE_HOUR));
 
         return $self;

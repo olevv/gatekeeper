@@ -16,6 +16,17 @@ use Doctrine\DBAL\FetchMode;
 
 final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken, FindUsers
 {
+    private const FIELDS = [
+        'email',
+        'password_hash',
+        'role',
+        'status',
+        'access_token',
+        'access_token_expires',
+        'created_at',
+        'updated_at'
+    ];
+
     private Connection $connection;
 
     public function __construct(Connection $connection)
@@ -32,17 +43,7 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     public function oneByEmail(Email $email): UserView
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
-                'uuid',
-                'email',
-                'password_hash',
-                'role',
-                'status',
-                'access_token',
-                'access_token_expires',
-                'created_at',
-                'updated_at',
-                )
+            ->select(self::FIELDS)
             ->from('users')
             ->where('email = :email')
             ->setParameter(':email', $email->toString())
@@ -68,17 +69,7 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     public function oneByToken(AccessToken $token): UserView
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
-                'uuid',
-                'email',
-                'password_hash',
-                'role',
-                'status',
-                'access_token',
-                'access_token_expires',
-                'created_at',
-                'updated_at',
-                )
+            ->select(self::FIELDS)
             ->from('users')
             ->where('access_token = :token')
             ->setParameter(':token', $token->toString())
@@ -103,22 +94,14 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     public function all(int $limit, int $offset): array
     {
         $stmt = $this->connection->createQueryBuilder()
-            ->select(
-                'uuid',
-                'email',
-                'password_hash',
-                'role',
-                'status',
-                'access_token',
-                'access_token_expires',
-                'created_at',
-                'updated_at',
-                )
+            ->select(self::FIELDS)
             ->from('users')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->execute();
 
-        return $stmt->fetchAll(FetchMode::CUSTOM_OBJECT, UserView::class);
+        $stmt->setFetchMode(FetchMode::CUSTOM_OBJECT, UserView::class);
+
+        return $stmt->fetchAll();
     }
 }

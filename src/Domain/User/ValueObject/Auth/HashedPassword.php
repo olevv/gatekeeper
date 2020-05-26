@@ -7,7 +7,6 @@ namespace App\Domain\User\ValueObject\Auth;
 use App\Domain\Shared\Exception\HashedPasswordException;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use RuntimeException;
 
 final class HashedPassword
 {
@@ -32,6 +31,7 @@ final class HashedPassword
             throw new \InvalidArgumentException($e->getMessage());
         }
 
+        /** @var string|bool|null $hashedPassword */
         $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
 
         if (\is_bool($hashedPassword) || $hashedPassword === null) {
