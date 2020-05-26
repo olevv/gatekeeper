@@ -93,12 +93,12 @@ style: ## execute php analizers
 	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src'
 
 .PHONY: cs
-cs: ## executes php cs fixer
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/php-cs-fixer --no-interaction --diff -v fix'
+cs: ## executes coding standards
+		$(compose) run --rm php-fpm sh -lc './vendor/bin/ecs check src tests --fix'
 
 .PHONY: cs-check
-cs-check: ## executes php cs fixer in dry run mode
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/php-cs-fixer --no-interaction --dry-run --diff -v fix'
+cs-check: ## executes coding standards in dry run mode
+		$(compose) run --rm php-fpm sh -lc './vendor/bin/ecs check src tests'
 
 .PHONY: layer
 layer: ## Check issues with layers

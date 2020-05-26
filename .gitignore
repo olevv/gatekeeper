@@ -12,8 +12,6 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
 ###< phpunit/phpunit ###
 
 /report/
@@ -26,4 +24,4 @@
 build/
 .phpunit.result.cache
 
-/Lsp/
+/lsp/
