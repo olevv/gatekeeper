@@ -18,8 +18,6 @@ final class GetUsersHandler implements QueryHandler
     }
 
     /**
-     * @param GetUsersQuery $query
-     *
      * @return UserView[]
      */
     public function __invoke(GetUsersQuery $query): array

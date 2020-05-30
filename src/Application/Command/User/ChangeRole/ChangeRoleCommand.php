@@ -12,6 +12,7 @@ final class ChangeRoleCommand
 {
     /** @psalm-readonly */
     public Role $role;
+
     /** @psalm-readonly */
     public UuidInterface $uuid;
 

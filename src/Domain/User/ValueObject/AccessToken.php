@@ -11,6 +11,7 @@ use Assert\AssertionFailedException;
 final class AccessToken
 {
     private const SALT = 'base_token';
+
     private const ONE_HOUR = 'PT1H';
 
     private string $value;
@@ -19,13 +20,14 @@ final class AccessToken
 
     /**
      * @return AccessToken
+     *
      * @throws \Exception
      */
     public static function generate(): self
     {
         $self = new self();
 
-        $self->value = hash('sha512', random_int(1, 90000).self::SALT);
+        $self->value = hash('sha512', random_int(1, 90000) . self::SALT);
         $self->expiresAt = (new \DateTimeImmutable('now'))->add(new \DateInterval(self::ONE_HOUR));
 
         return $self;
@@ -47,10 +49,8 @@ final class AccessToken
     }
 
     /**
-     * @param string $value
-     *
-     * @param \DateTimeImmutable $expiresAt
      * @return AccessToken
+     *
      * @throws InvalidAccessTokenException
      */
     public static function createWithExpiresAt(string $value, \DateTimeImmutable $expiresAt): self

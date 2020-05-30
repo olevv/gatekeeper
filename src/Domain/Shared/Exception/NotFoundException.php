@@ -6,5 +6,4 @@ namespace App\Domain\Shared\Exception;
 
 final class NotFoundException extends \Exception
 {
-
 }

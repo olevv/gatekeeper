@@ -12,12 +12,11 @@ final class ChangePasswordCommand
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;
+
     /** @psalm-readonly */
     public HashedPassword $password;
 
     /**
-     * @param string $uuid
-     * @param string $plainPassword
      * @throws \App\Domain\Shared\Exception\HashedPasswordException
      */
     public function __construct(string $uuid, string $plainPassword)

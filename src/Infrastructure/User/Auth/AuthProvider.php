@@ -30,6 +30,7 @@ final class AuthProvider implements UserProviderInterface
      * @param string $email
      *
      * @return Auth|UserInterface
+     *
      * @throws NotFoundException|\Exception|InvalidAccessTokenException
      */
     public function loadUserByUsername($email): UserInterface
@@ -56,8 +57,6 @@ final class AuthProvider implements UserProviderInterface
     }
 
     /**
-     * @param UserInterface $user
-     * @return UserInterface
      * @throws NotFoundException|InvalidAccessTokenException
      */
     public function refreshUser(UserInterface $user): UserInterface

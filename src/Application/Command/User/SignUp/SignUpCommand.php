@@ -14,6 +14,7 @@ final class SignUpCommand
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;
+
     /** @psalm-readonly */
     public Credentials $credentials;
 

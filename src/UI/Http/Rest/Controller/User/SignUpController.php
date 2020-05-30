@@ -46,9 +46,6 @@ final class SignUpController extends CommandQueryController
      * )
      *
      * @SWG\Tag(name="User")
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
     {

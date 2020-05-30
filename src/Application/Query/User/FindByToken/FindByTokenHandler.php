@@ -19,11 +19,6 @@ final class FindByTokenHandler implements QueryHandler
         $this->userFinder = $userFinder;
     }
 
-    /**
-     * @param FindByTokenQuery $query
-     * @return UserView
-     * @throws InvalidAccessTokenException
-     */
     public function __invoke(FindByTokenQuery $query): UserView
     {
         try {

@@ -10,9 +10,6 @@ use App\Domain\User\ValueObject\Email;
 interface UniqueEmailSpecification
 {
     /**
-     * @param Email $email
-     * @return bool
-     *
      * @throws EmailAlreadyExistException
      */
     public function isUnique(Email $email): bool;

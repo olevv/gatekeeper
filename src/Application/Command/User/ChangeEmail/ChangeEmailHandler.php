@@ -12,7 +12,9 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 final class ChangeEmailHandler implements CommandHandler
 {
     private UserRepository $userStore;
+
     private Flusher $flusher;
+
     private UniqueEmailSpecification $uniqueEmail;
 
     public function __construct(UserRepository $userStore, Flusher $flusher, UniqueEmailSpecification $uniqueEmail)
@@ -22,10 +24,6 @@ final class ChangeEmailHandler implements CommandHandler
         $this->uniqueEmail = $uniqueEmail;
     }
 
-    /**
-     * @param ChangeEmailCommand $command
-     * @throws \Exception
-     */
     public function __invoke(ChangeEmailCommand $command)
     {
         $user = $this->userStore->get($command->uuid);

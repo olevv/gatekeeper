@@ -24,7 +24,7 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
         'access_token',
         'access_token_expires',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     private Connection $connection;
@@ -35,9 +35,6 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     }
 
     /**
-     * @param Email $email
-     * @return UserView
-     *
      * @throws NotFoundException
      */
     public function oneByEmail(Email $email): UserView
@@ -61,9 +58,6 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     }
 
     /**
-     * @param AccessToken $token
-     * @return UserView
-     *
      * @throws NotFoundException
      */
     public function oneByToken(AccessToken $token): UserView
@@ -87,8 +81,6 @@ final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken
     }
 
     /**
-     * @param int $limit
-     * @param int $offset
      * @return UserView[]
      */
     public function all(int $limit, int $offset): array

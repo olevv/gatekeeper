@@ -14,6 +14,7 @@ use Ramsey\Uuid\Uuid;
 final class SignInHandler implements CommandHandler
 {
     private UserRepository $userStore;
+
     private FindUserByEmail $findUserByEmail;
 
     public function __construct(UserRepository $userStore, FindUserByEmail $findUserByEmail)

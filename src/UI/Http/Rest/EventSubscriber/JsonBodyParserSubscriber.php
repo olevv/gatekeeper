@@ -47,7 +47,7 @@ final class JsonBodyParserSubscriber implements EventSubscriberInterface
     private function transformJsonBody(Request $request): bool
     {
         try {
-            $data = json_decode((string)$request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $data = json_decode((string) $request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
             return false;
         }

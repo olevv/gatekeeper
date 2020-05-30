@@ -21,9 +21,6 @@ final class PostgresUniqueEmailSpecification extends Specification implements Un
     }
 
     /**
-     * @param Email $email
-     * @return bool
-     *
      * @throws EmailAlreadyExistException
      */
     public function isUnique(Email $email): bool

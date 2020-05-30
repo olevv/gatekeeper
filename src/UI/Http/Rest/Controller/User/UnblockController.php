@@ -45,12 +45,6 @@ final class UnblockController extends CommandQueryController
      * @SWG\Tag(name="User")
      *
      * @Security(name="Bearer")
-     *
-     * @param string  $uuid
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {

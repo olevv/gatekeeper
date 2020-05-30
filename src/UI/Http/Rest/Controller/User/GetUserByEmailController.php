@@ -43,11 +43,6 @@ final class GetUserByEmailController extends QueryController
      * @SWG\Tag(name="User")
      *
      * @Security(name="Bearer")
-     *
-     * @param string $email
-     *
-     * @return JsonResponse
-     *
      */
     public function __invoke(string $email): JsonResponse
     {

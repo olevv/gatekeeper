@@ -11,9 +11,6 @@ use App\Domain\User\ViewModel\UserView;
 interface FindUserByEmail
 {
     /**
-     * @param Email $email
-     * @return UserView
-     *
      * @throws NotFoundException
      */
     public function oneByEmail(Email $email): UserView;

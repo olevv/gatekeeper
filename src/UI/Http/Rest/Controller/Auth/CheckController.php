@@ -49,11 +49,6 @@ final class CheckController extends CommandQueryController
      * )
      *
      * @SWG\Tag(name="Auth")
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      */
     public function __invoke(Request $request): JsonResponse
     {

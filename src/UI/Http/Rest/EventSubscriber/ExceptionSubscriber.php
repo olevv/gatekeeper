@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\EventSubscriber;
 
+use App\Domain\Shared\Exception\DomainException;
 use App\Domain\Shared\Exception\NotFoundException;
 use App\Domain\User\Exception\ForbiddenException;
 use App\Domain\User\Exception\InvalidCredentialsException;
@@ -52,7 +53,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         $error = [
             'errors' => [
                 'title' => str_replace('\\', '.', \get_class($exception)),
-                'detail' => $this->getExceptionMessage($exception),
+                'detail' => $exception->getMessage(),
                 'code' => $exception->getCode(),
                 'status' => $response->getStatusCode(),
             ],
@@ -76,11 +77,6 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         return $error;
     }
 
-    private function getExceptionMessage(\Exception $exception): string
-    {
-        return $exception->getMessage();
-    }
-
     private function determineStatusCode(\Exception $exception): int
     {
         switch (true) {
@@ -100,6 +96,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
                 $statusCode = Response::HTTP_NOT_FOUND;
 
                 break;
+            case $exception instanceof DomainException:
             case $exception instanceof \InvalidArgumentException:
                 $statusCode = Response::HTTP_BAD_REQUEST;
 

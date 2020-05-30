@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class CreateUserCommand extends Command
 {
     private const EXIT_SUCCESS = 0;
+
     private CommandBus $commandBus;
 
     public function __construct(CommandBus $commandBus)

@@ -10,6 +10,7 @@ final class SignInCommand
 {
     /** @psalm-readonly */
     public Email $email;
+
     /** @psalm-readonly */
     public string $plainPassword;
 
