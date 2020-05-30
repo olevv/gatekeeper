@@ -12,7 +12,6 @@ final class Email
     private string $email;
 
     /**
-     * @param string $email
      * @return Email
      *
      * @throws \InvalidArgumentException
@@ -41,7 +40,7 @@ final class Email
         return $this->email;
     }
 
-    public function equals(Email $email): bool
+    public function equals(self $email): bool
     {
         return $this->email === $email->toString();
     }

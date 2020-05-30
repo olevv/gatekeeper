@@ -11,6 +11,7 @@ abstract class ApplicationTestCase extends KernelTestCase
 {
     /** @var CommandBus|null */
     private $commandBus;
+
     /** @var CommandBus|null */
     private $queryBus;
 

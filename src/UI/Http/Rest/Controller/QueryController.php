@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 abstract class QueryController extends AbstractController
 {
     private CommandBus $queryBus;
+
     private UrlGeneratorInterface $router;
 
     public function __construct(CommandBus $queryBus, UrlGeneratorInterface $router)
@@ -33,12 +34,10 @@ abstract class QueryController extends AbstractController
 
     /**
      * @param SerializableView[] $views
-     *
-     * @return JsonResponse
      */
     protected function jsonArray(array $views): JsonResponse
     {
-        return JsonResponse::create(array_map(fn(SerializableView $view) => $view->toArray(), $views));
+        return JsonResponse::create(array_map(fn (SerializableView $view) => $view->toArray(), $views));
     }
 
     protected function route(string $name, array $params = []): string

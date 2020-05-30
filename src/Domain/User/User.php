@@ -18,13 +18,21 @@ use Ramsey\Uuid\UuidInterface;
 final class User
 {
     private UuidInterface $uuid;
+
     private Email $email;
+
     private HashedPassword $hashedPassword;
+
     private Role $role;
+
     private Status $status;
+
     private ?string $accessToken;
+
     private ?\DateTimeImmutable $accessTokenExpires;
+
     private \DateTimeImmutable $createdAt;
+
     private ?\DateTimeImmutable $updatedAt;
 
     public static function create(
@@ -48,8 +56,6 @@ final class User
     }
 
     /**
-     * @param string $plainPassword
-     *
      * @throws InvalidCredentialsException
      */
     public function signIn(string $plainPassword): void
@@ -90,8 +96,6 @@ final class User
     }
 
     /**
-     * @param HashedPassword $password
-     *
      * @throws \Exception
      */
     public function changePassword(HashedPassword $password): void
@@ -101,9 +105,6 @@ final class User
     }
 
     /**
-     * @param Email $email
-     * @param UniqueEmailSpecification $uniqueEmail
-     *
      * @throws \Exception
      */
     public function changeEmail(Email $email, UniqueEmailSpecification $uniqueEmail): void
@@ -115,8 +116,6 @@ final class User
     }
 
     /**
-     * @param AccessToken $token
-     *
      * @throws \Exception
      */
     public function updateAccessToken(AccessToken $token): void
@@ -127,7 +126,6 @@ final class User
     }
 
     /**
-     * @param Role $role
      * @throws \Exception
      * @throws \DomainException
      */

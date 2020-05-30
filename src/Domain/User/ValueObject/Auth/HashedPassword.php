@@ -15,7 +15,6 @@ final class HashedPassword
     private const COST = 12;
 
     /**
-     * @param string $plainPassword
      * @return HashedPassword
      *
      * @throws HashedPasswordException
@@ -32,13 +31,13 @@ final class HashedPassword
         }
 
         /** @var string|bool|null $hashedPassword */
-        $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
+        $hashedPassword = password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => self::COST]);
 
         if (\is_bool($hashedPassword) || $hashedPassword === null) {
             throw new HashedPasswordException('Server error hashing password');
         }
 
-        $self->hashedPassword = (string)$hashedPassword;
+        $self->hashedPassword = (string) $hashedPassword;
 
         return $self;
     }
@@ -56,7 +55,6 @@ final class HashedPassword
     {
         return password_verify($plainPassword, $this->hashedPassword);
     }
-
 
     public function toString(): string
     {

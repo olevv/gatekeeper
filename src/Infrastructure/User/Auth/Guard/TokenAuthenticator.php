@@ -28,6 +28,7 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 final class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     private const PREFIX = 'Bearer';
+
     private const NAME = 'Authorization';
 
     private CommandBus $queryBus;
@@ -77,9 +78,7 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
 
     /**
      * @param string $credentials
-     * @param UserProviderInterface $userProvider
      *
-     * @return UserInterface|null
      * @throws \Assert\AssertionFailedException
      * @throws \Exception
      */

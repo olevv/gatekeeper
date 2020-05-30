@@ -10,6 +10,7 @@ use Assert\AssertionFailedException;
 final class Role
 {
     private const USER = 'ROLE_USER';
+
     private const ADMIN = 'ROLE_ADMIN';
 
     private string $name;
@@ -48,7 +49,7 @@ final class Role
         return $this->name;
     }
 
-    public function equals(Role $role): bool
+    public function equals(self $role): bool
     {
         return $this->name === $role->toString();
     }

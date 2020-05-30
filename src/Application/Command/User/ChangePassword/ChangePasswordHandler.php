@@ -11,6 +11,7 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 final class ChangePasswordHandler implements CommandHandler
 {
     private UserRepository $userStore;
+
     private Flusher $flusher;
 
     public function __construct(UserRepository $userStore, Flusher $flusher)
@@ -19,10 +20,6 @@ final class ChangePasswordHandler implements CommandHandler
         $this->flusher = $flusher;
     }
 
-    /**
-     * @param ChangePasswordCommand $command
-     * @throws \Exception
-     */
     public function __invoke(ChangePasswordCommand $command)
     {
         $user = $this->userStore->get($command->uuid);

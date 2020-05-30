@@ -14,7 +14,9 @@ use Ramsey\Uuid\Uuid;
 final class GetTokenHandler implements QueryHandler
 {
     private FindUserByEmail $userFinder;
+
     private UserRepository $userStore;
+
     private Flusher $flusher;
 
     public function __construct(FindUserByEmail $userFinder, UserRepository $userStore, Flusher $flusher)
@@ -24,13 +26,6 @@ final class GetTokenHandler implements QueryHandler
         $this->flusher = $flusher;
     }
 
-    /**
-     * @param GetTokenQuery $query
-     * @throws \App\Domain\Shared\Exception\NotFoundException
-     * @throws \Exception
-     *
-     * @return string
-     */
     public function __invoke(GetTokenQuery $query): string
     {
         $userView = $this->userFinder->oneByEmail($query->email);

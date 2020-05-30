@@ -9,6 +9,7 @@ use App\Domain\User\ValueObject\Email;
 final class Credentials
 {
     public Email $email;
+
     public HashedPassword $password;
 
     public function __construct(Email $email, HashedPassword $password)

@@ -17,11 +17,6 @@ final class FindByEmailHandler implements QueryHandler
         $this->userFinder = $userFinder;
     }
 
-    /**
-     * @param FindByEmailQuery $query
-     * @return UserView
-     * @throws \App\Domain\Shared\Exception\NotFoundException
-     */
     public function __invoke(FindByEmailQuery $query): UserView
     {
         return $this->userFinder->oneByEmail($query->email);

@@ -8,9 +8,9 @@ use App\Application\Command\User\Block\BlockCommand;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,12 +46,6 @@ final class BlockController extends CommandQueryController
      * @SWG\Tag(name="User")
      *
      * @Security(name="Bearer")
-     *
-     * @param string  $uuid
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {

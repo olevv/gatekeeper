@@ -12,6 +12,7 @@ final class ChangeEmailCommand
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;
+
     /** @psalm-readonly */
     public Email $email;
 

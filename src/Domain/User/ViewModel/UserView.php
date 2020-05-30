@@ -10,13 +10,21 @@ namespace App\Domain\User\ViewModel;
 final class UserView implements SerializableView
 {
     public string $uuid;
+
     public string $email;
+
     public string $password_hash;
+
     public string $role;
+
     public string $status;
+
     public ?string $access_token;
+
     public ?string $access_token_expires;
+
     public string $created_at;
+
     public ?string $updated_at;
 
     public function toArray(): array

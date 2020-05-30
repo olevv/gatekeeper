@@ -11,6 +11,7 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 final class BlockHandler implements CommandHandler
 {
     private UserRepository $userStore;
+
     private Flusher $flusher;
 
     public function __construct(UserRepository $userRepository, Flusher $flusher)
@@ -19,10 +20,6 @@ final class BlockHandler implements CommandHandler
         $this->flusher = $flusher;
     }
 
-    /**
-     * @param BlockCommand $command
-     * @throws \App\Domain\Shared\Exception\DomainException
-     */
     public function __invoke(BlockCommand $command)
     {
         $user = $this->userStore->get($command->uuid);

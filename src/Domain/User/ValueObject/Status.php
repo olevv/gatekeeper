@@ -10,6 +10,7 @@ use Assert\AssertionFailedException;
 final class Status
 {
     private const ACTIVE = 'ACTIVE';
+
     private const BLOCKED = 'BLOCKED';
 
     private string $name;
@@ -43,7 +44,7 @@ final class Status
         return new self(self::BLOCKED);
     }
 
-    public function equals(Status $status): bool
+    public function equals(self $status): bool
     {
         return $this->name === $status->toString();
     }

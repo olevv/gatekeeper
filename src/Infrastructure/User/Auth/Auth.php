@@ -16,11 +16,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 final class Auth implements UserInterface
 {
     private UuidInterface $userId;
+
     private Email $email;
+
     private HashedPassword $password;
+
     private Role $role;
+
     private Status $status;
+
     private string $accessToken;
+
     private ?\DateTimeImmutable $accessTokenExpires;
 
     public function __construct(

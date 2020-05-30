@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
@@ -6,8 +8,8 @@ use App\Application\Query\User\GetUsers\GetUsersQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,11 +38,6 @@ final class GetUsersController extends QueryController
      * @SWG\Tag(name="User")
      *
      * @Security(name="Bearer")
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      */
     public function __invoke(Request $request): JsonResponse
     {

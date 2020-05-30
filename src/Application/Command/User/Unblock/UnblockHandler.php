@@ -11,6 +11,7 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 final class UnblockHandler implements CommandHandler
 {
     private UserRepository $userStore;
+
     private Flusher $flusher;
 
     public function __construct(UserRepository $userStore, Flusher $flusher)
@@ -19,10 +20,6 @@ final class UnblockHandler implements CommandHandler
         $this->flusher = $flusher;
     }
 
-    /**
-     * @param UnblockCommand $command
-     * @throws \App\Domain\Shared\Exception\DomainException
-     */
     public function __invoke(UnblockCommand $command)
     {
         $user = $this->userStore->get($command->uuid);

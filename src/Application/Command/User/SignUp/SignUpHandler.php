@@ -13,9 +13,10 @@ use App\Infrastructure\Shared\Flusher\Flusher;
 final class SignUpHandler implements CommandHandler
 {
     private UserRepository $userStore;
-    private UniqueEmail $uniqueEmail;
-    private Flusher $flusher;
 
+    private UniqueEmail $uniqueEmail;
+
+    private Flusher $flusher;
 
     public function __construct(UserRepository $userStore, UniqueEmail $uniqueEmail, Flusher $flusher)
     {

@@ -49,6 +49,5 @@ final class HashedPasswordTest extends TestCase
         $password = HashedPassword::fromHash($hashedPassword);
 
         self::assertTrue($password->match('password12'));
-
     }
 }

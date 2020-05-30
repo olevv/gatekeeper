@@ -169,13 +169,10 @@ final class UserTest extends TestCase
 
     private function uniqueEmailSpecification(bool $isUniqueException = false): UniqueEmailSpecification
     {
-        $uniqueEmail = new class implements UniqueEmailSpecification {
+        $uniqueEmail = new class() implements UniqueEmailSpecification {
             public $isUniqueException;
 
             /**
-             * @param Email $email
-             * @return bool
-             *
              * @throws EmailAlreadyExistException
              */
             public function isUnique(Email $email): bool
