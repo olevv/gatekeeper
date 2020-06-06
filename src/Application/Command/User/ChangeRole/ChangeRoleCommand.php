@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Application\Command\User\ChangeRole;
 
 use App\Domain\User\ValueObject\Role;
+use App\Infrastructure\Shared\Bus\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class ChangeRoleCommand
+final class ChangeRoleCommand implements Command
 {
     /** @psalm-readonly */
     public Role $role;

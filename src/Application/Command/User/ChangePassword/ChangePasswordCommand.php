@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Application\Command\User\ChangePassword;
 
 use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Infrastructure\Shared\Bus\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class ChangePasswordCommand
+final class ChangePasswordCommand implements Command
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;

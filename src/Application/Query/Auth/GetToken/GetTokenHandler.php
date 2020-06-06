@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Auth\GetToken;
 
-use App\Application\Query\QueryHandler;
 use App\Domain\User\Finder\FindUserByEmail;
 use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\ValueObject\AccessToken;
+use App\Infrastructure\Shared\Bus\Query\QueryHandler;
 use App\Infrastructure\Shared\Flusher\Flusher;
 use Ramsey\Uuid\Uuid;
 

@@ -12,6 +12,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class JsonBodyParserSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @return array{'kernel.request': 'onKernelRequest'}
+     */
     public static function getSubscribedEvents(): array
     {
         return [

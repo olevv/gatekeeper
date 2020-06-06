@@ -12,10 +12,11 @@ use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\User\Finder\PostgresUserFinder;
 use App\Tests\Application\ApplicationTestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class BlockHandlerTest extends ApplicationTestCase
 {
-    private $uuid;
+    private UuidInterface $uuid;
 
     protected function setUp(): void
     {

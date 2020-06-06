@@ -16,6 +16,10 @@ final class UserChangeEmailVoter extends Voter
         return $subject instanceof ChangeEmailCommand;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $auth = $token->getUser();

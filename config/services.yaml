@@ -8,12 +8,12 @@ services:
             $commandBus: '@tactician.commandbus.command'
 
     _instanceof:
-        App\Application\Command\CommandHandler:
+        App\Infrastructure\Shared\Bus\Command\CommandHandler:
             public: true
             tags:
                 - { name: tactician.handler, typehints: true, bus: command }
 
-        App\Application\Query\QueryHandler:
+        App\Infrastructure\Shared\Bus\Query\QueryHandler:
             public: true
             tags:
                 - { name: tactician.handler, typehints: true, bus: query }

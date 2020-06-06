@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Application\Command\User\ChangeEmail;
 
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\Shared\Bus\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class ChangeEmailCommand
+final class ChangeEmailCommand implements Command
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;

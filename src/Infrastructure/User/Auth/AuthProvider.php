@@ -64,7 +64,7 @@ final class AuthProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
-    public function supportsClass($class): bool
+    public function supportsClass(string $class): bool
     {
         return Auth::class === $class;
     }

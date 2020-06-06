@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignUp;
 
-use App\Application\Command\CommandHandler;
 use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\Specification\UniqueEmailSpecification as UniqueEmail;
 use App\Domain\User\User;
+use App\Infrastructure\Shared\Bus\Command\CommandHandler;
 use App\Infrastructure\Shared\Flusher\Flusher;
 
 final class SignUpHandler implements CommandHandler
@@ -25,7 +25,7 @@ final class SignUpHandler implements CommandHandler
         $this->flusher = $flusher;
     }
 
-    public function __invoke(SignUpCommand $command)
+    public function __invoke(SignUpCommand $command): void
     {
         $user = User::create($command->uuid, $command->credentials, $this->uniqueEmail);
 
