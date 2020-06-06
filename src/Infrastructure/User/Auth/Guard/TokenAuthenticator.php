@@ -129,8 +129,9 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
         return $response;
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?Response
     {
+        return null;
     }
 
     public function supportsRememberMe(): bool

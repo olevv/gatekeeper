@@ -7,10 +7,11 @@ namespace App\Application\Command\User\SignUp;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\Shared\Bus\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class SignUpCommand
+final class SignUpCommand implements Command
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller;
 
 use App\Domain\User\ViewModel\SerializableView;
+use App\Infrastructure\Shared\Bus\Query\Query;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +23,12 @@ abstract class QueryController extends AbstractController
         $this->router = $router;
     }
 
-    protected function ask($query)
+    /**
+     * @return mixed
+     *
+     * @throws \Throwable
+     */
+    protected function ask(Query $query)
     {
         return $this->queryBus->handle($query);
     }

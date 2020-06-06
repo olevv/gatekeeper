@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
+use App\Infrastructure\Shared\Bus\Command\Command;
 use League\Tactician\CommandBus;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -20,7 +21,7 @@ class CommandQueryController extends QueryController
         $this->commandBus = $commandBus;
     }
 
-    protected function exec($command): void
+    protected function exec(Command $command): void
     {
         $this->commandBus->handle($command);
     }

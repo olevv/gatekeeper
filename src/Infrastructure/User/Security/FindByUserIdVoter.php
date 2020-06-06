@@ -16,6 +16,10 @@ final class FindByUserIdVoter extends Voter
         return $subject instanceof FindByEmailQuery;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $auth = $token->getUser();

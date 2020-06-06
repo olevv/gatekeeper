@@ -16,6 +16,10 @@ final class UserUnblockVoter extends Voter
         return $subject instanceof UnblockCommand;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $auth = $token->getUser();

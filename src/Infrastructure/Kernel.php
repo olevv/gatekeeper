@@ -50,7 +50,7 @@ class Kernel extends BaseKernel
     }
 
     /**
-     * @throws \Symfony\Component\Config\Exception\FileLoaderLoadException
+     * @throws \Throwable
      */
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {

@@ -16,6 +16,10 @@ final class GetUsersVoter extends Voter
         return $subject instanceof GetUsersQuery;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $auth = $token->getUser();

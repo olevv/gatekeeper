@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+docker-compose run --rm php-fpm sh -lc 'vendor/bin/parallel-lint --exclude vendor --exclude .idea .'
+	if [ $? != 0 ]
+	then
+		echo "Fix errors before commit."
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc './vendor/bin/ecs check src tests'
+	if [ $? != 0 ]
+	then
+		echo "Fix code style before commit."
+		echo "Try run ./vendor/bin/ecs check src tests --fix"
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcpd src'
+	if [ $? != 0 ]
+	then
+		echo "Copy-paste detected"
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src'
+	if [ $? != 0 ]
+	then
+		echo "Fix errors before commit."
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc './vendor/bin/psalm --show-info=false'
+  if [ $? != 0 ]
+	then
+		echo "Fix errors before commit."
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
+  if [ $? != 0 ]
+	then
+		echo "Fix errors before commit."
+		exit 1
+	fi
+
+docker-compose run --rm php-fpm sh -lc './vendor/bin/phpunit'
+	if [ $? != 0 ]
+	then
+		echo "Fix tests before commit."
+		exit 1
+	fi

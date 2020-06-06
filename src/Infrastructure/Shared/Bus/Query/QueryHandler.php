@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Query;
+namespace App\Infrastructure\Shared\Bus\Query;
 
 interface QueryHandler
 {

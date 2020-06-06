@@ -16,6 +16,10 @@ final class UserChangePasswordVoter extends Voter
         return $subject instanceof ChangePasswordCommand;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $auth = $token->getUser();

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignIn;
 
-use App\Application\Command\CommandHandler;
 use App\Domain\Shared\Exception\NotFoundException;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Domain\User\Finder\FindUserByEmail;
 use App\Domain\User\Repository\UserRepository;
+use App\Infrastructure\Shared\Bus\Command\CommandHandler;
 use Ramsey\Uuid\Uuid;
 
 final class SignInHandler implements CommandHandler
@@ -23,7 +23,7 @@ final class SignInHandler implements CommandHandler
         $this->findUserByEmail = $findUserByEmail;
     }
 
-    public function __invoke(SignInCommand $command)
+    public function __invoke(SignInCommand $command): void
     {
         try {
             $userView = $this->findUserByEmail->oneByEmail($command->email);

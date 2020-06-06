@@ -85,15 +85,8 @@ logs: ## look for 's' service logs, make s=php logs
 tests: tests ## execute project tests
 	docker-compose exec php-fpm sh -lc "./vendor/bin/phpunit $(conf)"
 
-.PHONY: style
-style: ## execute php analizers
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpmnd src'
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcs --standard=psr2 src'
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpcpd src'
-	docker-compose run --rm php-fpm sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src'
-
-.PHONY: cs
-cs: ## executes coding standards
+.PHONY: cs-fix
+cs-fix: ## executes coding standards
 		$(compose) run --rm php-fpm sh -lc './vendor/bin/ecs check src tests --fix'
 
 .PHONY: cs-check

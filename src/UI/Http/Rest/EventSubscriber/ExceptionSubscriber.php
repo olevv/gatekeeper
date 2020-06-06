@@ -43,12 +43,12 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    private function getStatusCode(\Exception $exception): int
+    private function getStatusCode(\Throwable $exception): int
     {
         return $this->determineStatusCode($exception);
     }
 
-    private function getErrorMessage(\Exception $exception, Response $response): array
+    private function getErrorMessage(\Throwable $exception, Response $response): array
     {
         $error = [
             'errors' => [
@@ -77,7 +77,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         return $error;
     }
 
-    private function determineStatusCode(\Exception $exception): int
+    private function determineStatusCode(\Throwable $exception): int
     {
         switch (true) {
             case $exception instanceof HttpExceptionInterface:

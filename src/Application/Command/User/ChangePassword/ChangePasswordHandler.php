@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\ChangePassword;
 
-use App\Application\Command\CommandHandler;
 use App\Domain\User\Repository\UserRepository;
+use App\Infrastructure\Shared\Bus\Command\CommandHandler;
 use App\Infrastructure\Shared\Flusher\Flusher;
 
 final class ChangePasswordHandler implements CommandHandler
@@ -20,7 +20,7 @@ final class ChangePasswordHandler implements CommandHandler
         $this->flusher = $flusher;
     }
 
-    public function __invoke(ChangePasswordCommand $command)
+    public function __invoke(ChangePasswordCommand $command): void
     {
         $user = $this->userStore->get($command->uuid);
 

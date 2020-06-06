@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
+use App\Infrastructure\Shared\Bus\Command\Command;
+use App\Infrastructure\Shared\Bus\Query\Query;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
-    /** @var CommandBus|null */
-    private $commandBus;
+    private ?CommandBus $commandBus = null;
 
-    /** @var CommandBus|null */
-    private $queryBus;
+    private ?CommandBus $queryBus = null;
 
     protected function setUp(): void
     {
@@ -30,12 +30,12 @@ abstract class ApplicationTestCase extends KernelTestCase
         $this->queryBus = null;
     }
 
-    protected function ask($query)
+    protected function ask(Query $query)
     {
         return $this->queryBus->handle($query);
     }
 
-    protected function exec($command): void
+    protected function exec(Command $command): void
     {
         $this->commandBus->handle($command);
     }
