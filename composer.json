@@ -66,18 +66,17 @@
         "symfony/polyfill-iconv": "*"
     },
     "scripts": {
-        "cghooks": "vendor/bin/cghooks",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts",
-            "cghooks add --ignore-lock"
+            "bash .githooks/setup.sh",
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts",
-            "cghooks update"
+            "bash .githooks/setup.sh",
+            "@auto-scripts"
         ]
     },
     "conflict": {
@@ -87,9 +86,6 @@
         "symfony": {
             "allow-contrib": false,
             "require": "^5.0"
-        },
-        "hooks": {
-            "pre-commit": ".githooks/setup.sh"
         }
     }
 }
