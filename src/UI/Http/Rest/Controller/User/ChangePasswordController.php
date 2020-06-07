@@ -65,6 +65,6 @@ final class ChangePasswordController extends CommandQueryController
 
         $this->exec($command);
 
-        return JsonResponse::create();
+        return new JsonResponse();
     }
 }

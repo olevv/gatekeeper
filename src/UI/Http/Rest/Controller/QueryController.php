@@ -35,7 +35,7 @@ abstract class QueryController extends AbstractController
 
     protected function jsonResponse(SerializableView $view): JsonResponse
     {
-        return JsonResponse::create($view->toArray());
+        return new JsonResponse($view->toArray());
     }
 
     /**
@@ -43,7 +43,7 @@ abstract class QueryController extends AbstractController
      */
     protected function jsonArray(array $views): JsonResponse
     {
-        return JsonResponse::create(array_map(fn (SerializableView $view) => $view->toArray(), $views));
+        return new JsonResponse(array_map(fn (SerializableView $view) => $view->toArray(), $views));
     }
 
     protected function route(string $name, array $params = []): string

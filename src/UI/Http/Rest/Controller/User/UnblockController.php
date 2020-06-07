@@ -60,6 +60,6 @@ final class UnblockController extends CommandQueryController
 
         $this->exec($command);
 
-        return JsonResponse::create();
+        return new JsonResponse();
     }
 }

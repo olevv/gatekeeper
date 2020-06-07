@@ -61,6 +61,6 @@ final class SignUpController extends CommandQueryController
 
         $this->exec(new SignUpCommand(Uuid::uuid4()->toString(), $email, $plainPassword));
 
-        return JsonResponse::create(null, JsonResponse::HTTP_CREATED);
+        return new JsonResponse(null, JsonResponse::HTTP_CREATED);
     }
 }

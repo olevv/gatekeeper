@@ -25,7 +25,8 @@
         "symfony/yaml": "^5.0",
         "symfony/twig-bundle": "^5.0",
         "symfony/asset": "^5.0",
-        "symfony/polyfill-php80": "^1.17"
+        "symfony/polyfill-php80": "^1.17",
+        "doctrine/persistence": "^1"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.3",
@@ -37,11 +38,10 @@
         "symfony/dotenv": "^5.0",
         "sylius-labs/coding-standard": "^3.1",
         "roave/security-advisories": "dev-master",
-        "symfony/phpunit-bridge": "^5.0",
+        "symfony/phpunit-bridge": "^5.1",
         "symfony/profiler-pack": "^1.0",
         "vimeo/psalm": "^3.11",
-        "php-parallel-lint/php-parallel-lint": "^1",
-        "brainmaestro/composer-git-hooks": "^2"
+        "php-parallel-lint/php-parallel-lint": "^1"
     },
     "config": {
         "preferred-install": {

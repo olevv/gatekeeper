@@ -13,26 +13,46 @@ use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use App\Domain\User\ValueObject\Role;
 use App\Domain\User\ValueObject\Status;
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="users", uniqueConstraints={
+ *     @ORM\UniqueConstraint(columns={"email"})
+ * })
+ */
 final class User
 {
+    /**
+     * @ORM\Column(type="uuid")
+     * @ORM\Id
+     */
     private UuidInterface $uuid;
 
+    /** @ORM\Column(type="email", unique=true, length=60) */
     private Email $email;
 
+    /** @ORM\Column(type="hashed_password", name="password_hash", length=255) */
     private HashedPassword $hashedPassword;
 
+    /** @ORM\Column(type="role", length=30) */
     private Role $role;
 
+    /** @ORM\Column(type="status", length=16) */
     private Status $status;
 
+    /** @ORM\Column(type="string", nullable=true, length=255) */
     private ?string $accessToken;
 
+    /** @ORM\Column(type="datetime_immutable", nullable=true) */
     private ?\DateTimeImmutable $accessTokenExpires;
 
+    /** @ORM\Column(type="datetime_immutable") */
     private \DateTimeImmutable $createdAt;
 
+    /** @ORM\Column(type="datetime_immutable", nullable=true) */
     private ?\DateTimeImmutable $updatedAt;
 
     public static function create(

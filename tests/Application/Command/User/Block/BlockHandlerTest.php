@@ -11,6 +11,7 @@ use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\User\Finder\PostgresUserFinder;
 use App\Tests\Application\ApplicationTestCase;
+use Doctrine\DBAL\Connection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -31,6 +32,13 @@ final class BlockHandlerTest extends ApplicationTestCase
         );
 
         $this->exec($command);
+    }
+
+    protected function tearDown(): void
+    {
+        $dbal = self::$container->get(Connection::class);
+        $dbal->executeUpdate('DELETE FROM users WHERE uuid=:uuid', ['uuid' => $this->uuid]);
+        parent::tearDown();
     }
 
     /**
