@@ -37,7 +37,7 @@ final class JsonBodyParserSubscriber implements EventSubscriberInterface
         }
 
         if (!$this->transformJsonBody($request)) {
-            $response = Response::create('Unable to parse json request.', Response::HTTP_BAD_REQUEST);
+            $response = new Response('Unable to parse json request.', Response::HTTP_BAD_REQUEST);
             $event->setResponse($response);
         }
     }

@@ -66,7 +66,7 @@ final class CheckController extends CommandQueryController
 
         $this->exec($command);
 
-        return JsonResponse::create(
+        return new JsonResponse(
             [
                 'token' => $this->ask(new GetTokenQuery($email)),
             ]

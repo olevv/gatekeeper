@@ -17,7 +17,7 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function setUp(): void
     {
-        static::bootKernel();
+        self::bootKernel();
 
         $this->commandBus = self::$container->get('tactician.commandbus.command');
 

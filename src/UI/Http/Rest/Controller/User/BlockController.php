@@ -60,6 +60,6 @@ final class BlockController extends CommandController
 
         $this->exec($command);
 
-        return JsonResponse::create();
+        return new JsonResponse();
     }
 }

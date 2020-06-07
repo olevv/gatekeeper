@@ -7,17 +7,18 @@ parameters:
 
 doctrine:
     dbal:
-        driver:   pdo_pgsql
+        driver:   'pdo_pgsql'
         host:     "%env(DB_HOST)%"
         port:     "%env(DB_PORT)%"
         dbname:   "%env(DB_DATABASE)%"
         user:     "%env(DB_USERNAME)%"
         password: "%env(DB_PASSWORD)%"
-        charset:  UTF8
         server_version: '11.2'
+        charset: utf8
         default_table_options:
             charset: utf8
             collate: -
+
         types:
             uuid: Ramsey\Uuid\Doctrine\UuidType
             email: App\Infrastructure\Shared\DoctrineTypes\EmailType
@@ -28,10 +29,12 @@ doctrine:
             jsonb: json_array
     orm:
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
             User:
-                type: yml
+                is_bundle: false
+                type: annotation
                 prefix: 'App\Domain\User'
-                dir: '%kernel.project_dir%/config/mapping/User'
+                dir: '%kernel.project_dir%/src/Domain/User'
+                alias: User

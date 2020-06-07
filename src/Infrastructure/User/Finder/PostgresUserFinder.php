@@ -17,6 +17,7 @@ use Doctrine\DBAL\FetchMode;
 final class PostgresUserFinder implements FindUserByEmail, FindUserByAccessToken, FindUsers
 {
     private const FIELDS = [
+        'uuid',
         'email',
         'password_hash',
         'role',
