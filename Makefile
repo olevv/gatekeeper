@@ -53,7 +53,7 @@ create-user: ## create default user
 
 .PHONY: remove-files
 remove-files: ## remove files which created init fraemwork
-		$(compose) exec php-fpm rm -rf src/Kernel.php config/routes/annotations.yaml config/packages/sensio_framework_extra.yaml config/packages/routing.yaml config/packages/test/routing.yaml config/bootstrap.php bin/phpunit tests/.gitignore
+		$(compose) exec php-fpm rm -rf src/Kernel.php config/routes/annotations.yaml config/routes/dev/framework.yaml config/packages/sensio_framework_extra.yaml config/packages/routing.yaml config/packages/test/routing.yaml config/packages/test/twig.yaml config/bootstrap.php bin/phpunit tests/.gitignore tests/bootstrap.php .php_cs.dist
 
 .PHONY: remove-folders
 remove-folders: ## remove folders which created init fraemwork

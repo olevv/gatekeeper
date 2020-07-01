@@ -59,7 +59,7 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
         return $request->headers->has(self::NAME);
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): string
     {
         if (!$this->supports($request)) {
             throw new AuthenticationException();
