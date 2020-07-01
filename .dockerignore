@@ -4,7 +4,13 @@ vendor/
 test/
 var/
 .env
+.env.local.php
 README.md
 phpstan.neon
 docker-compose*
 .git/
+.php_cs*
+depfile.yml
+.idea
+phpunit.xml.dist
+makefile
