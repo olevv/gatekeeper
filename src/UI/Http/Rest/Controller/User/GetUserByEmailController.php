@@ -56,6 +56,6 @@ final class GetUserByEmailController extends QueryController
 
         $this->denyAccessUnlessGranted($email, $query);
 
-        return $this->jsonResponse($this->ask(new FindByEmailQuery($email)));
+        return $this->jsonResponse($this->ask($query));
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Shared\Bus\Query;
+namespace App\Application\Query;
 
 interface QueryBus
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\ChangeEmail;
 
+use App\Application\Command\Command;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Shared\Bus\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

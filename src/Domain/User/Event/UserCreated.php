@@ -10,10 +10,12 @@ use App\Domain\User\ValueObject\Role;
 use App\Domain\User\ValueObject\Status;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserWasCreated extends DomainEvent
+final class UserCreated extends DomainEvent
 {
     private Credentials $credentials;
+
     private Role $role;
+
     private Status $status;
 
     public function __construct(
@@ -30,9 +32,9 @@ final class UserWasCreated extends DomainEvent
         $this->status = $status;
     }
 
-    public function eventName(): string
+    public function name(): string
     {
-        return 'user_was_created';
+        return 'user_created';
     }
 
     public function payload(): array

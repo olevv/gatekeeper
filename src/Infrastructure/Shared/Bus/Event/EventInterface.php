@@ -6,5 +6,4 @@ namespace App\Infrastructure\Shared\Bus\Event;
 
 interface EventInterface
 {
-
 }

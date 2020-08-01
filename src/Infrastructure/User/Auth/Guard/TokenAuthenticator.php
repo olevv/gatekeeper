@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth\Guard;
 
+use App\Application\Query\QueryBus;
 use App\Application\Query\User\FindByToken\FindByTokenQuery;
 use App\Domain\User\Exception\InvalidAccessTokenException;
 use App\Domain\User\ValueObject\AccessToken;
@@ -14,7 +15,6 @@ use App\Domain\User\ValueObject\Role;
 use App\Domain\User\ValueObject\Status;
 use App\Domain\User\ViewModel\UserView;
 use App\Infrastructure\User\Auth\Auth;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +31,9 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
 
     private const NAME = 'Authorization';
 
-    private CommandBus $queryBus;
+    private QueryBus $queryBus;
 
-    public function __construct(CommandBus $queryBus)
+    public function __construct(QueryBus $queryBus)
     {
         $this->queryBus = $queryBus;
     }
@@ -86,7 +86,7 @@ final class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         try {
             /** @var UserView $userView */
-            $userView = $this->queryBus->handle(new FindByTokenQuery($credentials));
+            $userView = $this->queryBus->ask(new FindByTokenQuery($credentials));
 
             $credentials = new Credentials(
                 Email::fromString($userView->email),

@@ -1,0 +1,26 @@
+FROM php:7.4.2-cli-alpine
+
+RUN apk --update upgrade \
+    && apk add --no-cache autoconf automake make gcc g++ bash icu-dev rabbitmq-c rabbitmq-c-dev postgresql-dev unzip \
+    && pecl install amqp-1.9.4 \
+    && pecl install apcu-5.1.18 \
+    && pecl install xdebug-2.9.5 \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install -j$(nproc) \
+        bcmath \
+        opcache \
+        intl \
+        pdo_pgsql \
+    && docker-php-ext-enable \
+        amqp \
+        apcu \
+        xdebug \
+        opcache
+
+COPY ./php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+WORKDIR /app

@@ -55,6 +55,6 @@ final class GetUsersController extends QueryController
 
         $this->denyAccessUnlessGranted(null, $query);
 
-        return $this->jsonArray($this->ask($query));
+        return $this->jsonArray(...$this->ask($query));
     }
 }

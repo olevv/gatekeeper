@@ -4,7 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\User;
 
+use App\Domain\Shared\Aggregate\AggregateRoot;
 use App\Domain\Shared\Exception\DomainException;
+use App\Domain\User\Event\UserAccessTokenUpdated;
+use App\Domain\User\Event\UserBlocked;
+use App\Domain\User\Event\UserCreated;
+use App\Domain\User\Event\UserEmailChanged;
+use App\Domain\User\Event\UserPasswordChanged;
+use App\Domain\User\Event\UserRoleChanged;
+use App\Domain\User\Event\UserSignedIn;
+use App\Domain\User\Event\UserUnblocked;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Domain\User\Specification\UniqueEmailSpecification;
 use App\Domain\User\ValueObject\AccessToken;
@@ -14,6 +23,7 @@ use App\Domain\User\ValueObject\Email;
 use App\Domain\User\ValueObject\Role;
 use App\Domain\User\ValueObject\Status;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -23,7 +33,7 @@ use Ramsey\Uuid\UuidInterface;
  *     @ORM\UniqueConstraint(columns={"email"})
  * })
  */
-final class User
+final class User extends AggregateRoot
 {
     /**
      * @ORM\Column(type="uuid")
@@ -73,6 +83,10 @@ final class User
         $this->role = Role::user();
         $this->status = Status::active();
         $this->createdAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(
+            new UserCreated($credentials, $this->role, $this->status, $uuid, Uuid::uuid4(), $this->createdAt)
+        );
     }
 
     /**
@@ -83,6 +97,8 @@ final class User
         if (!$this->hashedPassword->match($plainPassword)) {
             throw new InvalidCredentialsException('Invalid credentials entered.');
         }
+
+        $this->recordEvent(new UserSignedIn($this->email, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -98,6 +114,8 @@ final class User
 
         $this->status = $blocked;
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserBlocked($blocked, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -113,6 +131,8 @@ final class User
 
         $this->status = $active;
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserUnblocked($active, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -122,6 +142,8 @@ final class User
     {
         $this->hashedPassword = $password;
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserPasswordChanged($password, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -133,6 +155,8 @@ final class User
 
         $this->email = $email;
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserEmailChanged($email, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -143,6 +167,8 @@ final class User
         $this->accessToken = $token->toString();
         $this->accessTokenExpires = $token->expiresAt();
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserAccessTokenUpdated($token, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     /**
@@ -157,6 +183,8 @@ final class User
 
         $this->role = $role;
         $this->updatedAt = new \DateTimeImmutable('now');
+
+        $this->recordEvent(new UserRoleChanged($role, $this->uuid, Uuid::uuid4(), new \DateTimeImmutable('now')));
     }
 
     public function uuid(): string

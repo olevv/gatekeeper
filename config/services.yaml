@@ -3,24 +3,38 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-        bind:
-            $queryBus: '@tactician.commandbus.query'
-            $commandBus: '@tactician.commandbus.command'
 
     _instanceof:
-        App\Infrastructure\Shared\Bus\Command\CommandHandler:
+        App\Application\Command\CommandHandler:
             public: true
             tags:
-                - { name: tactician.handler, typehints: true, bus: command }
+                - { name: messenger.message_handler, bus: messenger.bus.command }
 
-        App\Infrastructure\Shared\Bus\Query\QueryHandler:
+        App\Application\Query\QueryHandler:
             public: true
             tags:
-                - { name: tactician.handler, typehints: true, bus: query }
+                - { name: messenger.message_handler, bus: messenger.bus.query }
+
+        App\Infrastructure\Shared\Bus\Event\EventHandler:
+            public: true
+            tags:
+                - { name: messenger.message_handler, bus: messenger.bus.event.async }
 
     App\:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
+
+    App\Infrastructure\Shared\Bus\Command\MessengerCommandBus:
+        arguments:
+            - '@messenger.bus.command'
+
+    App\Infrastructure\Shared\Bus\Query\MessengerQueryBus:
+        arguments:
+            - '@messenger.bus.query'
+
+    App\Infrastructure\Shared\Bus\Event\MessengerEventBus:
+        arguments:
+            - '@messenger.bus.event.async'
 
     App\UI\Http\Rest\Controller\:
         resource: '../src/UI/Http/Rest/Controller'

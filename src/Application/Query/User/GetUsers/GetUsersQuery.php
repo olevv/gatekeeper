@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Query\User\GetUsers;
 
-use App\Infrastructure\Shared\Bus\Query\Query;
+use App\Application\Query\Query;
 
 final class GetUsersQuery implements Query
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Shared\Bus\Command\Command;
-use League\Tactician\CommandBus;
+use App\Application\Command\Command;
+use App\Application\Command\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 abstract class CommandController extends AbstractController

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\CLI\Command;
 
+use App\Application\Command\CommandBus;
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

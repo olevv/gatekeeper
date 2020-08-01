@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\Unblock;
 
-use App\Infrastructure\Shared\Bus\Command\Command;
+use App\Application\Command\Command;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

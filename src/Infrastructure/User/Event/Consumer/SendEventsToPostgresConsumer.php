@@ -10,7 +10,7 @@ use App\Infrastructure\User\Exception\DatabaseException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 
-final class SendEventsConsumer implements EventHandler
+final class SendEventsToPostgresConsumer implements EventHandler
 {
     private Connection $connection;
 
@@ -32,12 +32,12 @@ final class SendEventsConsumer implements EventHandler
         try {
             $this->connection->executeUpdate(
                 <<<SQL
-                INSERT INTO events (id,  aggregate_id, name,  payload,  occurred_on) 
-                            VALUES ($id, $aggregateId, $name, $payload, $occurredOn);
+                    INSERT INTO domain_events (id,  aggregate_id, name,  payload,  occurred_on) 
+                                VALUES ($id, $aggregateId, $name, $payload, $occurredOn);
 SQL
             );
         } catch (DBALException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }
