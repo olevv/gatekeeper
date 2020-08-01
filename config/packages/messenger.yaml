@@ -1,0 +1,27 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.command
+
+        buses:
+            messenger.bus.command:
+                default_middleware: false
+                middleware:
+                    - handle_message
+
+            messenger.bus.query:
+                default_middleware: false
+                middleware:
+                    - handle_message
+
+            messenger.bus.event.async: ~
+
+        transports:
+            events:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                retry_strategy:
+                    delay: 2000
+                    max_retries: 5
+
+        routing:
+            'App\Domain\Shared\Event\DomainEvent': events
+

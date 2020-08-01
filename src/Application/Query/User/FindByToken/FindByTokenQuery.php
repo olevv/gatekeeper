@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Application\Query\User\FindByToken;
 
+use App\Application\Query\Query;
 use App\Domain\User\ValueObject\AccessToken;
-use App\Infrastructure\Shared\Bus\Query\Query;
 
 final class FindByTokenQuery implements Query
 {
+    /** @psalm-readonly */
     public AccessToken $token;
 
     public function __construct(string $token)

@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
+use App\Application\Query\Query;
+use App\Application\Query\QueryBus;
 use App\Domain\User\ViewModel\SerializableView;
-use App\Infrastructure\Shared\Bus\Query\Query;
-use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class QueryController extends AbstractController
 {
-    private CommandBus $queryBus;
+    private QueryBus $queryBus;
 
     private UrlGeneratorInterface $router;
 
-    public function __construct(CommandBus $queryBus, UrlGeneratorInterface $router)
+    public function __construct(QueryBus $queryBus, UrlGeneratorInterface $router)
     {
         $this->queryBus = $queryBus;
         $this->router = $router;
@@ -30,7 +30,7 @@ abstract class QueryController extends AbstractController
      */
     protected function ask(Query $query)
     {
-        return $this->queryBus->handle($query);
+        return $this->queryBus->ask($query);
     }
 
     protected function jsonResponse(SerializableView $view): JsonResponse
@@ -38,10 +38,7 @@ abstract class QueryController extends AbstractController
         return new JsonResponse($view->toArray());
     }
 
-    /**
-     * @param SerializableView[] $views
-     */
-    protected function jsonArray(array $views): JsonResponse
+    protected function jsonArray(SerializableView ...$views): JsonResponse
     {
         return new JsonResponse(array_map(fn (SerializableView $view) => $view->toArray(), $views));
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Query\User\GetUsers;
 
+use App\Application\Query\QueryHandler;
 use App\Domain\User\Finder\FindUsers;
 use App\Domain\User\ViewModel\UserView;
-use App\Infrastructure\Shared\Bus\Query\QueryHandler;
 
 final class GetUsersHandler implements QueryHandler
 {

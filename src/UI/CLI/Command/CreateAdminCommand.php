@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\UI\CLI\Command;
 
+use App\Application\Command\CommandBus;
 use App\Application\Command\User\ChangeRole\ChangeRoleCommand;
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
 use App\Domain\User\ValueObject\Role;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

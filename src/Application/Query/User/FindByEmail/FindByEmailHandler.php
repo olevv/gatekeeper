@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Query\User\FindByEmail;
 
+use App\Application\Query\QueryHandler;
 use App\Domain\User\Finder\FindUserByEmail;
 use App\Domain\User\ViewModel\UserView;
-use App\Infrastructure\Shared\Bus\Query\QueryHandler;
 
 final class FindByEmailHandler implements QueryHandler
 {

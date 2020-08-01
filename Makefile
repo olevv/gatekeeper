@@ -15,9 +15,6 @@ stop: ## stop environment
 down: ## down environment
 		$(compose) down
 
-.PHONY: rebuild
-rebuild: start ## same as start
-
 .PHONY: erase
 erase: ## stop and delete containers, clean volumes.
 		$(compose) stop
@@ -50,6 +47,10 @@ composer-update: ## run composer-update
 .PHONY: create-user
 create-user: ## create default user
 		$(compose) exec php-fpm sh -lc './bin/console app:create-user $(email) $(password) $(uuid)'
+
+.PHONY: create-admin
+create-admin: ## create admin
+		$(compose) exec php-fpm sh -lc './bin/console app:create-admin $(email) $(password) $(uuid)'
 
 .PHONY: remove-files
 remove-files: ## remove files which created init fraemwork

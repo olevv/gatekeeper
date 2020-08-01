@@ -24,10 +24,22 @@ services:
     depends_on:
       - postgres
 
+  workers:
+    build:
+      context: ./docker/development
+      dockerfile: php-cli.docker
+    volumes:
+      - .:/app
+      - composer_data:/root/.composer/cache
+    depends_on:
+      - postgres
+      - rabbitmq
+    command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
+
   postgres:
     image: postgres:11.2-alpine
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: gatekeeper
       POSTGRES_PASSWORD: 123456
@@ -35,5 +47,22 @@ services:
     ports:
       - "54321:5432"
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_logs:/var/log/rabbitmq/
+    environment:
+      RABBITMQ_ERLANG_COOKIE:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 volumes:
-  postgres:
+  postgres_data:
+  rabbitmq_data:
+  rabbitmq_logs:
+  composer_data:

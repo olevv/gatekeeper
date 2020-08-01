@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Shared\Bus\Command\Command;
-use League\Tactician\CommandBus;
+use App\Application\Command\Command;
+use App\Application\Command\CommandBus;
+use App\Application\Query\QueryBus;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CommandQueryController extends QueryController
@@ -14,7 +15,7 @@ class CommandQueryController extends QueryController
 
     public function __construct(
         CommandBus $commandBus,
-        CommandBus $queryBus,
+        QueryBus $queryBus,
         UrlGeneratorInterface $router
     ) {
         parent::__construct($queryBus, $router);
