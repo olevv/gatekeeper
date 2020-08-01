@@ -1,4 +1,4 @@
-Simple private API
+Simple API
 -----------------------
 ## Documentation
 
