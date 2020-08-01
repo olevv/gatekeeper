@@ -38,7 +38,7 @@ restart: ## restart environment
 
 .PHONY: composer-install
 composer-install: ## run composer-install
-		$(compose) exec php-fpm composer install $(s)
+		$(compose) exec php-fpm composer install
 
 .PHONY: composer-update
 composer-update: ## run composer-update

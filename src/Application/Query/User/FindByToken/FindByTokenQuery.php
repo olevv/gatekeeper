@@ -9,6 +9,7 @@ use App\Domain\User\ValueObject\AccessToken;
 
 final class FindByTokenQuery implements Query
 {
+    /** @psalm-readonly */
     public AccessToken $token;
 
     public function __construct(string $token)
