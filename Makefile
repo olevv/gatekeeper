@@ -102,6 +102,10 @@ layer: ## Check issues with layers
 psalm: ## execute psalm analyzer
 		$(compose) run --rm php-fpm sh -lc './vendor/bin/psalm --show-info=false'
 
+.PHONY: php-metrics
+php-metrics: ## PhpMetrics Static analyzer for PHP
+		$(compose) run --rm php-fpm sh -lc 'php ./vendor/bin/phpmetrics --report-html=report/metrics src/'
+
 .PHONY: help
 help: ## Display this help message
 	@cat $(MAKEFILE_LIST) | grep -e "^[a-zA-Z_\-]*: *.*## *" | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
