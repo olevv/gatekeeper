@@ -225,6 +225,9 @@
     "phpmd/phpmd": {
         "version": "2.8.2"
     },
+    "phpmetrics/phpmetrics": {
+        "version": "v2.7.4"
+    },
     "phpspec/prophecy": {
         "version": "v1.10.3"
     },
